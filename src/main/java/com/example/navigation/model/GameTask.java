@@ -2,6 +2,7 @@ package com.example.navigation.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.Nationalized;
 
 @Data
 @Entity
@@ -25,18 +26,21 @@ public class GameTask {
     private String taskType;
 
     // --- 若為問答任務，使用以下欄位 ---
+    @Nationalized // 👈 確保中文題目正常顯示
     @Column(columnDefinition = "NVARCHAR(MAX)")
     private String question;
     
     // 將 A, B, C 選項存成 JSON 字串 (例如: {"A":"選項一", "B":"選項二", "C":"選項三"})
+    @Nationalized // 👈 確保選項內的中文正常顯示
     @Column(columnDefinition = "NVARCHAR(MAX)")
     private String optionsJson;
 
+    @Nationalized // 👈 確保文字答案若是中文時不會變質
     @Column(length = 100)
     private String answer;
 
     // --- 若為拼圖任務，使用以下欄位 ---
-    @Column(columnDefinition = "VARCHAR(MAX)") // 拼圖的 Base64 字串會非常長
+    @Column(columnDefinition = "VARCHAR(MAX)") // 💡 拼圖的 Base64 碼均為純英數字元，用普通 VARCHAR(MAX) 即可
     private String puzzleImage;
 
     @Column(nullable = false)

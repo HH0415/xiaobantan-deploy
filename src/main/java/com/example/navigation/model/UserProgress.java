@@ -20,7 +20,7 @@ public class UserProgress {
     private Integer taskId;
 
     @Column(nullable = false, length = 20)
-    private String status; 
+    private String status; // 通常為英文字串代碼 (如: COMPLETED)
 
     @Column(name = "completed_at")
     private LocalDateTime completedAt;
