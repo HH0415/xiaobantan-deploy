@@ -142,26 +142,81 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const btnSaveProfile = document.getElementById('btnSaveProfile');
         if (btnSaveProfile) {
-            btnSaveProfile.addEventListener('click', () => {
+            btnSaveProfile.addEventListener('click', async () => {
                 const editShopTitle = document.getElementById('editShopTitle');
                 const editShopAddress = document.getElementById('editShopAddress');
                 const editShopDesc = document.getElementById('editShopDesc');
                 const editShopStatus = document.getElementById('editShopStatus');
+                
+                const titleVal = editShopTitle ? editShopTitle.value.trim() : "";
+                const addressVal = editShopAddress ? editShopAddress.value.trim() : "";
+                const descVal = editShopDesc ? editShopDesc.value.trim() : "";
+                const statusVal = editShopStatus ? editShopStatus.value : "open";
+                
                 const currentData = JSON.parse(localStorage.getItem(`shop_profile_${shopId}`)) || {};
+                
+                btnSaveProfile.disabled = true;
+                btnSaveProfile.innerText = "處理中...";
 
-                const updatedData = {
-                    title: editShopTitle ? editShopTitle.value.trim() : "",
-                    address: editShopAddress ? editShopAddress.value.trim() : "",
-                    description: editShopDesc ? editShopDesc.value.trim() : "",
-                    bgImage: currentData.bgImage || "",
-                    status: editShopStatus ? editShopStatus.value : "open"
+                let latitude = 0.0;
+                let longitude = 0.0;
+
+                if (addressVal !== "") {
+                    try {
+                        const geoResponse = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(addressVal)}`);
+                        const geoData = await geoResponse.json();
+
+                        if (geoData && geoData.length > 0) {
+                            latitude = parseFloat(geoData[0].lat);
+                            longitude = parseFloat(geoData[0].lon);
+                        } else {
+                            alert("提醒：免費地圖圖資較少，找不到此精確地址的座標。但文字資料仍會幫您更新。");
+                        }
+                    } catch (err) {
+                        console.error(err);
+                    }
+                }
+
+                const updatePayload = {
+                    name: titleVal,
+                    address: addressVal,
+                    description: descVal,
+                    latitude: latitude,
+                    longitude: longitude
                 };
 
-                localStorage.setItem(`shop_profile_${shopId}`, JSON.stringify(updatedData));
-                localStorage.setItem('userName', updatedData.title); 
+                try {
+                    const res = await fetch(`/api/attractions/merchant/${shopId}`, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(updatePayload)
+                    });
 
-                alert('資料已成功更新！');
-                location.reload();
+                    if (res.ok) {
+                        const updatedData = {
+                            title: titleVal,
+                            address: addressVal,
+                            description: descVal,
+                            bgImage: currentData.bgImage || "",
+                            status: statusVal
+                        };
+                        localStorage.setItem(`shop_profile_${shopId}`, JSON.stringify(updatedData));
+                        localStorage.setItem('userName', titleVal); 
+
+                        alert('商家資料已成功更新！地圖將會同步顯示最新位置。');
+                        location.reload();
+                    } else {
+                        alert("更新失敗，請檢查網路連線或稍後再試。");
+                    }
+                } catch (error) {
+                    console.error(error);
+                    alert("伺服器連線異常，無法儲存。");
+                } finally {
+                    btnSaveProfile.disabled = false;
+                    btnSaveProfile.innerText = "儲存所有修改";
+                }
             });
         }
     }
