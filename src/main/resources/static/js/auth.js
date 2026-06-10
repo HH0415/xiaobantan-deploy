@@ -91,13 +91,10 @@ document.addEventListener("DOMContentLoaded", () => {
                         latitude = parseFloat(geoData[0].lat);
                         longitude = parseFloat(geoData[0].lon);
                     } else {
-                        alert("提醒：找不到該地址的精確位置！請確認地址是否輸入正確，否則地圖將無法顯示。");
-                        return; 
+                        alert("提醒：免費地圖圖資較少，找不到此精確地址。系統將為您標記在小半天中心點。");
                     }
                 } catch (err) {
                     console.error(err);
-                    alert("座標轉換服務暫時無法連線，請稍後再試！");
-                    return; 
                 }
             }
 
