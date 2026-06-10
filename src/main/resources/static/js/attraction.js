@@ -26,8 +26,9 @@ document.addEventListener("DOMContentLoaded", async () => {
                 document.getElementById('pageDesc').innerHTML = formattedDesc;
 
                 const heroImage = document.getElementById('heroImage');
-                if (heroImage && currentSpot.imageUrl) {
-                    heroImage.style.backgroundImage = `url('${currentSpot.imageUrl}')`;
+                if (heroImage) {
+                    const imageUrl = currentSpot.imageUrl ? currentSpot.imageUrl : 'https://images.unsplash.com/photo-1599839619722-39751411ea63?q=80&w=1000&auto=format&fit=crop';
+                    heroImage.style.backgroundImage = `url('${imageUrl}')`;
                     heroImage.style.backgroundSize = 'cover';
                     heroImage.style.backgroundPosition = 'center';
                 }

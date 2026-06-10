@@ -41,21 +41,27 @@ document.addEventListener("DOMContentLoaded", () => {
 
     async function loadShopData() {
         const savedData = JSON.parse(localStorage.getItem(`shop_profile_${shopId}`)) || {
-            title: queryShopName ? decodeURIComponent(queryShopName) : (isOwner ? (userName || "載入中...") : "載入中..."),
-            address: "南投縣鹿谷鄉小半天",
-            description: "小半天在地優質商家。",
+            title: queryShopName ? decodeURIComponent(queryShopName) : (isOwner ? (userName || "") : ""),
+            address: "",
+            latitude: "",
+            longitude: "",
+            description: "",
             bgImage: "https://images.unsplash.com/photo-1599839619722-39751411ea63?q=80&w=1000&auto=format&fit=crop",
             status: "open"
         };
 
         const editShopTitle = document.getElementById('editShopTitle');
         const editShopAddress = document.getElementById('editShopAddress');
+        const editShopLat = document.getElementById('editShopLat');
+        const editShopLng = document.getElementById('editShopLng');
         const editShopDesc = document.getElementById('editShopDesc');
         const editShopStatus = document.getElementById('editShopStatus');
         const shopHeroBg = document.getElementById('shopHeroBg');
 
         if (editShopTitle) editShopTitle.value = savedData.title;
         if (editShopAddress) editShopAddress.value = savedData.address;
+        if (editShopLat) editShopLat.value = savedData.latitude || "";
+        if (editShopLng) editShopLng.value = savedData.longitude || "";
         if (editShopDesc) editShopDesc.value = savedData.description;
         if (editShopStatus) editShopStatus.value = savedData.status || "open";
 
@@ -84,7 +90,7 @@ document.addEventListener("DOMContentLoaded", () => {
             tagBadge.style.color = '#2B6CB0';
         }
 
-        ['editShopTitle', 'editShopAddress', 'editShopDesc'].forEach(id => {
+        ['editShopTitle', 'editShopAddress', 'editShopLat', 'editShopLng', 'editShopDesc'].forEach(id => {
             const el = document.getElementById(id);
             if (el) {
                 el.readOnly = true;
@@ -145,11 +151,15 @@ document.addEventListener("DOMContentLoaded", () => {
             btnSaveProfile.addEventListener('click', async () => {
                 const editShopTitle = document.getElementById('editShopTitle');
                 const editShopAddress = document.getElementById('editShopAddress');
+                const editShopLat = document.getElementById('editShopLat');
+                const editShopLng = document.getElementById('editShopLng');
                 const editShopDesc = document.getElementById('editShopDesc');
                 const editShopStatus = document.getElementById('editShopStatus');
                 
                 const titleVal = editShopTitle ? editShopTitle.value.trim() : "";
                 const addressVal = editShopAddress ? editShopAddress.value.trim() : "";
+                const latVal = editShopLat && editShopLat.value !== "" ? parseFloat(editShopLat.value) : 0.0;
+                const lngVal = editShopLng && editShopLng.value !== "" ? parseFloat(editShopLng.value) : 0.0;
                 const descVal = editShopDesc ? editShopDesc.value.trim() : "";
                 const statusVal = editShopStatus ? editShopStatus.value : "open";
                 
@@ -158,31 +168,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 btnSaveProfile.disabled = true;
                 btnSaveProfile.innerText = "處理中...";
 
-                let latitude = 0.0;
-                let longitude = 0.0;
-
-                if (addressVal !== "") {
-                    try {
-                        const geoResponse = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(addressVal)}`);
-                        const geoData = await geoResponse.json();
-
-                        if (geoData && geoData.length > 0) {
-                            latitude = parseFloat(geoData[0].lat);
-                            longitude = parseFloat(geoData[0].lon);
-                        } else {
-                            alert("提醒：免費地圖圖資較少，找不到此精確地址的座標。但文字資料仍會幫您更新。");
-                        }
-                    } catch (err) {
-                        console.error(err);
-                    }
-                }
-
                 const updatePayload = {
                     name: titleVal,
                     address: addressVal,
                     description: descVal,
-                    latitude: latitude,
-                    longitude: longitude
+                    latitude: latVal,
+                    longitude: lngVal
                 };
 
                 try {
@@ -198,6 +189,8 @@ document.addEventListener("DOMContentLoaded", () => {
                         const updatedData = {
                             title: titleVal,
                             address: addressVal,
+                            latitude: latVal,
+                            longitude: lngVal,
                             description: descVal,
                             bgImage: currentData.bgImage || "",
                             status: statusVal
@@ -205,14 +198,13 @@ document.addEventListener("DOMContentLoaded", () => {
                         localStorage.setItem(`shop_profile_${shopId}`, JSON.stringify(updatedData));
                         localStorage.setItem('userName', titleVal); 
 
-                        alert('商家資料已成功更新！地圖將會同步顯示最新位置。');
+                        alert('資料已更新！');
                         location.reload();
                     } else {
-                        alert("更新失敗，請檢查網路連線或稍後再試。");
+                        alert("更新失敗");
                     }
                 } catch (error) {
-                    console.error(error);
-                    alert("伺服器連線異常，無法儲存。");
+                    alert("網路異常");
                 } finally {
                     btnSaveProfile.disabled = false;
                     btnSaveProfile.innerText = "儲存所有修改";
@@ -253,7 +245,7 @@ document.addEventListener("DOMContentLoaded", () => {
     function onScanSuccess(decodedText, decodedResult) {
         html5QrcodeScanner.clear();
         currentDecodedText = decodedText;
-        scanDataText.innerText = `讀取到的店家憑證：${decodedText}`;
+        scanDataText.innerText = `讀取憑證：${decodedText}`;
         document.getElementById('reader').innerHTML = ''; 
         scanResultDiv.classList.remove('hidden');
     }
@@ -264,7 +256,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (btnConfirmScan) {
         btnConfirmScan.addEventListener('click', async () => {
             if (!userId) {
-                alert("請先登入小半天系統再進行解鎖！");
+                alert("請先登入！");
                 window.location.href = "auth.html";
                 return;
             }
@@ -285,16 +277,15 @@ document.addEventListener("DOMContentLoaded", () => {
                 const result = await response.json();
                 
                 if (result.status === 200 || result.code === 200) {
-                    alert('準備進入任務挑戰！');
                     localStorage.setItem('currentTaskData', JSON.stringify(result.data));
                     window.location.href = `index34.html?taskId=${result.data.taskId}&shopId=${shopId}`;
                 } else {
-                    alert(`解鎖失敗：${result.message}`);
+                    alert(`失敗：${result.message}`);
                     btnConfirmScan.disabled = false;
                     btnConfirmScan.innerText = "確認並進入挑戰";
                 }
             } catch (error) {
-                alert("網路連線錯誤，請確認條碼是否正確並稍後再試！");
+                alert("網路連線錯誤");
                 btnConfirmScan.disabled = false;
                 btnConfirmScan.innerText = "確認並進入挑戰";
             }
