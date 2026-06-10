@@ -1,0 +1,66 @@
+@import "index.css";
+
+:root {
+    --font-size: 16px;
+    --background: #F4F9F1;
+    --foreground: #1A3322;
+    --card: #FFFFFF;
+    --popover: #FFFFFF;
+    --primary: #2E7D4F;
+    --primary-foreground: #FFFFFF;
+    --secondary: #E3F2E9;
+    --muted: #EAF4EC;
+    --muted-foreground: #5A7A64;
+    --accent: #52B56F;
+    --accent-foreground: #FFFFFF;
+    --destructive: #c0392b;
+    --border: rgba(46, 125, 79, 0.18);
+    --ring: #52B56F;
+    --radius: 0.625rem;
+}
+
+body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-size: var(--font-size);
+}
+
+.bg-background { background-color: var(--background); }
+.text-foreground { color: var(--foreground); }
+.bg-card { background-color: var(--card); }
+.border-theme-border { border-color: var(--border); }
+
+.bg-primary { background-color: var(--primary); }
+.text-primary { color: var(--primary); }
+.border-primary { border-color: var(--primary); }
+.text-primary-foreground { color: var(--primary-foreground); }
+
+.bg-secondary { background-color: var(--secondary); }
+.bg-accent { background-color: var(--accent); }
+.text-accent { color: var(--accent); }
+
+.rounded-theme { border-radius: var(--radius); }
+.rounded-theme-lg { border-radius: calc(var(--radius) + 8px); }
+
+/* --- 拼圖特效 --- */
+.puzzle-piece {
+    width: 100px;
+    height: 100px;
+    background-size: 300px 300px; /* 大圖的尺寸 */
+    background-repeat: no-repeat;
+    cursor: grab;
+    transition: transform 0.2s ease, opacity 0.2s ease, box-shadow 0.2s ease;
+    border: 1px solid rgba(255,255,255,0.4);
+}
+
+.puzzle-piece:active {
+    cursor: grabbing;
+    transform: scale(0.95);
+    z-index: 10;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.puzzle-piece.dragging {
+    opacity: 0.4;
+    transform: scale(0.9);
+}

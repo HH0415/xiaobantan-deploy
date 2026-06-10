@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小半天 - AI智慧互動在地導覽系統</title>
+    <link rel="stylesheet" href="css/index.css">
+    <script src="js/index.js" defer></script>
+</head>
+<body>
+
+    <div id="header-placeholder"></div>
+
+    <main>
+        <section class="hero-section">
+            <div class="container hero-container">
+                <div class="hero-left">
+                    <div class="tag-pill">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                        南投鹿谷 · 小半天休閒農業區
+                    </div>
+                    <h1 class="hero-title">AI 智慧互動<br><span class="highlight">在地導覽系統</span></h1>
+                    <p class="hero-desc">結合 Spring AI 智慧推薦與互動遊戲機制，帶您深度探索竹林、茶園、古道與銀杏秘境，解鎖小半天四季之美。</p>
+                    <div class="hero-buttons">
+                        <a href="mapping.html" class="btn btn-primary">開始探索地圖 &gt;</a>
+                        </div>
+                </div>
+                <div class="hero-right">
+                    <div class="stat-card">
+                        <div class="stat-num" id="idxStatNum1">5</div>
+                        <div class="stat-label" id="idxStatLabel1">個旗幟景點</div>
+                        <div class="stat-sub" id="idxStatSub1">互動任務據點</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-num" id="idxStatNum2">4</div>
+                        <div class="stat-label" id="idxStatLabel2">個季節主題</div>
+                        <div class="stat-sub" id="idxStatSub2">四季限定體驗</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-num" id="idxStatNum3">2</div>
+                        <div class="stat-label" id="idxStatLabel3">種遊戲模板</div>
+                        <div class="stat-sub" id="idxStatSub3">拼圖 / 問答</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-num" id="idxStatNum4">AI</div>
+                        <div class="stat-label" id="idxStatLabel4">智慧導覽</div>
+                        <div class="stat-sub" id="idxStatSub4">Spring AI RAG</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="season-section">
+            <div class="container">
+                <div class="section-header">
+                    <div>
+                        <span class="section-subtitle">四季時序體驗</span>
+                        <h2 class="section-title">隨季節探索小半天</h2>
+                    </div>
+                    <a href="mapping.html" class="view-map-link">查看地圖 &gt;</a>
+                </div>
+                
+                <div class="season-grid">
+                    <div class="season-card">
+                        <span class="season-badge badge-spring">春</span>
+                        <h3 id="idxSeasonTitle1">賞櫻季</h3>
+                        <p id="idxSeasonDesc1">石馬公園滿開的山櫻花</p>
+                    </div>
+                    <div class="season-card">
+                        <span class="season-badge badge-summer">夏</span>
+                        <h3 id="idxSeasonTitle2">探步道</h3>
+                        <p id="idxSeasonDesc2">長源圳古道生態豐富</p>
+                    </div>
+                    <div class="season-card">
+                        <span class="season-badge badge-autumn">秋</span>
+                        <h3 id="idxSeasonTitle3">銀杏林</h3>
+                        <p id="idxSeasonDesc3">大崙山金黃銀杏秘境</p>
+                    </div>
+                    <div class="season-card">
+                        <span class="season-badge badge-winter">冬</span>
+                        <h3 id="idxSeasonTitle4">採茶趣</h3>
+                        <p id="idxSeasonDesc4">霧氣孕育高山好茶</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="mission-section">
+            <div class="container">
+                <span class="mission-subtitle">互動遊戲機制</span>
+                <h2 class="mission-title">掃描 QR Code · 解鎖旗幟任務</h2>
+                <p class="mission-desc">抵達景點、掃描實體牌示，完成拼圖或問答任務後解鎖下一站路徑，蒐集全部旗幟徽章！</p>
+                
+                <div class="mission-grid">
+                    <div class="mission-card">
+                        <h3 id="idxMissionTitle1">地圖旗幟導覽</h3>
+                        <p id="idxMissionDesc1">AI 根據您的偏好與體力，規劃個人化的四季行程路線</p>
+                    </div>
+                    <div class="mission-card">
+                        <h3 id="idxMissionTitle2">拼圖解鎖任務</h3>
+                        <p id="idxMissionDesc2">商家上傳在地景觀照片，系統自動切割為互動拼圖遊戲</p>
+                    </div>
+                    <div class="mission-card">
+                        <h3 id="idxMissionTitle3">食農問答挑戰</h3>
+                        <p id="idxMissionDesc3">回答在地文化知識問題，深度了解小半天的食農特色</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <p>115 年 USR 計畫 · 國立臺中科技大學資訊管理系 · 導覽系統團隊</p>
+    </footer>
+
+</body>
+</html>

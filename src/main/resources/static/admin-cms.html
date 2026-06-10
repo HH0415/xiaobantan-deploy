@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小半天 - 首頁內容管理</title>
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/admin-cms.css">
+    <script src="js/index.js" defer></script>
+    <script src="js/admin-cms.js" defer></script>
+</head>
+<body class="cms-body">
+
+    <div id="header-placeholder"></div>
+
+    <main class="cms-container container">
+        <div class="page-header">
+            <h1 class="text-3xl font-bold">首頁內容管理</h1>
+            <p class="text-gray-500 mt-2">左側修改內容，右側即時預覽。確認無誤後請點擊下方儲存發布。</p>
+        </div>
+
+        <div class="cms-layout">
+            <div class="cms-editor">
+                
+                <div class="cms-card">
+                    <div class="card-header">
+                        <h2>首頁主視覺設定</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label class="form-label">活動按鈕文字</label>
+                            <input type="text" id="cmsEventBtnText" class="form-input sync-input" data-target="previewBtnText" placeholder="例如：報名冬季採茶體驗">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">活動跳轉連結 (URL)</label>
+                            <input type="text" id="cmsEventLink" class="form-input" placeholder="例如：https://google.com/forms/...">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">首頁大背景圖更換</label>
+                            <div class="image-upload-area" id="heroUploadArea">
+                                <span class="text-gray-500 upload-text">點擊或拖曳上傳新背景圖</span>
+                                <input type="file" id="uploadHeroImg" accept="image/*" style="display: none;">
+                                <img id="heroPreview" class="preview-img hidden" alt="預覽圖">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cms-card highlight-card">
+                    <div class="card-header">
+                        <h2>自訂活動與圖文解說</h2>
+                        <span class="badge-tag new-feature">自由發揮</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label class="form-label">活動公告標題</label>
+                            <input type="text" id="cmsCustomTitle" class="form-input sync-input" data-target="previewCustomTitle" placeholder="例如：2026 小半天竹筍節熱烈開跑！">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">詳細解說內容</label>
+                            <textarea id="cmsCustomDesc" class="form-textarea sync-input" data-target="previewCustomDesc" rows="5" placeholder="請在此輸入詳細的活動說明或宣傳文案..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">上傳宣傳圖片</label>
+                            <div class="image-upload-area" id="customUploadArea">
+                                <span class="text-gray-500 upload-text">點擊上傳活動宣傳圖</span>
+                                <input type="file" id="uploadCustomImg" accept="image/*" style="display: none;">
+                                <img id="customPreview" class="preview-img hidden" alt="預覽圖">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cms-card">
+                    <div class="card-header">
+                        <h2>數據看板設定</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="grid-2">
+                            <div class="stat-group">
+                                <label>卡片 1</label>
+                                <input type="text" id="cms_stat_num1" class="form-input sync-input mb-2" data-target="previewStatNum1" placeholder="大數字 (例: 5)">
+                                <input type="text" id="cms_stat_label1" class="form-input sync-input" data-target="previewStatLabel1" placeholder="小標籤 (例: 旗幟景點)">
+                            </div>
+                            <div class="stat-group">
+                                <label>卡片 2</label>
+                                <input type="text" id="cms_stat_num2" class="form-input sync-input mb-2" data-target="previewStatNum2" placeholder="大數字">
+                                <input type="text" id="cms_stat_label2" class="form-input sync-input" data-target="previewStatLabel2" placeholder="小標籤">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cms-card">
+                    <div class="card-header">
+                        <h2>季節主題卡片設定</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="grid-2">
+                            <div class="season-group spring">
+                                <label class="season-label">春季主題</label>
+                                <input type="text" id="cms_season_title1" class="form-input sync-input mb-2" data-target="previewSeasonTitle1" placeholder="春季標題">
+                                <input type="text" id="cms_season_desc1" class="form-input sync-input" data-target="previewSeasonDesc1" placeholder="春季描述">
+                            </div>
+                            <div class="season-group summer">
+                                <label class="season-label">夏季主題</label>
+                                <input type="text" id="cms_season_title2" class="form-input sync-input mb-2" data-target="previewSeasonTitle2" placeholder="夏季標題">
+                                <input type="text" id="cms_season_desc2" class="form-input sync-input" data-target="previewSeasonDesc2" placeholder="夏季描述">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <button id="btnSaveCms" class="btn-primary-large mt-4">儲存並發布更新</button>
+            </div>
+
+            <div class="cms-preview-wrapper">
+                <div class="preview-header">首頁即時預覽</div>
+                <div class="cms-preview-box">
+                    
+                    <div class="preview-hero" id="previewHeroBg">
+                        <h3 class="preview-hero-title">AI 智慧互動<br>在地導覽系統</h3>
+                        <a href="#" class="preview-btn" id="previewBtnText">開始探索地圖 &gt;</a>
+                    </div>
+
+                    <div class="preview-stats">
+                        <div class="preview-stat-card">
+                            <div class="stat-num" id="previewStatNum1">5</div>
+                            <div class="stat-label" id="previewStatLabel1">個旗幟景點</div>
+                        </div>
+                        <div class="preview-stat-card">
+                            <div class="stat-num" id="previewStatNum2">4</div>
+                            <div class="stat-label" id="previewStatLabel2">個季節主題</div>
+                        </div>
+                    </div>
+
+                    <div class="preview-custom-section" id="previewCustomSection">
+                        <h4 id="previewCustomTitle">自訂活動標題</h4>
+                        <div class="preview-custom-img-box" id="previewCustomImgBox" style="display: none;">
+                            <img id="previewCustomImg" src="" alt="活動宣傳">
+                        </div>
+                        <p id="previewCustomDesc">這裡會顯示您輸入的詳細解說內容...</p>
+                    </div>
+
+                    <div class="preview-season-title">隨季節探索小半天</div>
+                    <div class="preview-season-cards">
+                        <div class="preview-season-card">
+                            <span class="preview-badge" style="background: #FEEBC8; color: #DD6B20;">春</span>
+                            <div>
+                                <h4 id="previewSeasonTitle1">賞櫻季</h4>
+                                <p id="previewSeasonDesc1">石馬公園滿開的山櫻花</p>
+                            </div>
+                        </div>
+                        <div class="preview-season-card">
+                            <span class="preview-badge" style="background: #C6F6D5; color: #22543D;">夏</span>
+                            <div>
+                                <h4 id="previewSeasonTitle2">竹林避暑</h4>
+                                <p id="previewSeasonDesc2">漫步孟宗竹林享受清涼</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </main>
+
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小半天 - 使用者管理與審核</title>
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/admin-users.css">
+    <script src="js/index.js" defer></script>
+    <script src="js/admin-users.js" defer></script>
+</head>
+<body>
+
+    <div id="header-placeholder"></div>
+
+    <main class="admin-users-container container">
+        <div class="page-header">
+            <h1 class="text-3xl font-bold" style="color: #2D3748;">使用者與商家管理系統</h1>
+            <p class="text-gray-500 mt-2">在此審核新註冊的商家，並管理全站遊客的帳號狀態。</p>
+        </div>
+
+        <div class="users-layout">
+            <div class="tabs-container">
+                <button class="tab-btn active" data-target="pendingTab">
+                    待審核商家 <span id="pendingCount" class="badge">0</span>
+                </button>
+                <button class="tab-btn" data-target="allUsersTab">
+                    全站使用者管理
+                </button>
+            </div>
+
+            <div class="tab-content-area">
+                
+                <div id="pendingTab" class="tab-pane active">
+                    <div class="table-responsive">
+                        <table class="users-table">
+                            <thead>
+                                <tr>
+                                    <th>申請時間</th>
+                                    <th>商家名稱</th>
+                                    <th>聯絡信箱</th>
+                                    <th>申請狀態</th>
+                                    <th class="text-center">審核操作</th>
+                                </tr>
+                            </thead>
+                            <tbody id="pendingTableBody">
+                                <tr>
+                                    <td colspan="5" class="text-center py-8 text-gray-500">載入中...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div id="allUsersTab" class="tab-pane">
+                    
+                    <div class="filter-bar">
+                        <input type="text" id="searchUser" class="form-input search-input" placeholder="搜尋使用者名稱或信箱...">
+                        <select id="roleFilter" class="form-select">
+                            <option value="all">所有身分</option>
+                            <option value="tourist">一般遊客</option>
+                            <option value="merchant">合作商家</option>
+                        </select>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="users-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>使用者名稱</th>
+                                    <th>信箱</th>
+                                    <th>身分</th>
+                                    <th>帳號狀態</th>
+                                    <th class="text-center">管理操作</th>
+                                </tr>
+                            </thead>
+                            <tbody id="allUsersTableBody">
+                                <tr>
+                                    <td colspan="6" class="text-center py-8 text-gray-500">載入中...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <div id="editUserModal" class="modal">
+        <div class="modal-content">
+            <h2 class="panel-title" style="margin-bottom: 20px; font-size: 20px; color: #1E5E3A; font-weight: bold;">修改使用者資料</h2>
+            <form id="editUserForm">
+                <input type="hidden" id="editUserId">
+                
+                <div class="form-group" style="margin-bottom: 15px;">
+                    <label class="form-label">使用者名稱</label>
+                    <input type="text" id="editUserName" class="form-input" required>
+                </div>
+                
+                <div class="form-group" style="margin-bottom: 15px;">
+                    <label class="form-label">信箱</label>
+                    <input type="email" id="editUserEmail" class="form-input" required>
+                </div>
+                
+                <div class="form-group" style="margin-bottom: 20px;">
+                    <label class="form-label">身分</label>
+                    <select id="editUserRole" class="form-select" required>
+                        <option value="tourist">遊客</option>
+                        <option value="merchant">商家</option>
+                    </select>
+                </div>
+                
+                <div style="display: flex; gap: 10px;">
+                    <button type="button" class="btn-cancel" onclick="closeUserEditModal()" style="flex: 1; padding: 12px; border-radius: 8px; border: none; background: #E2E8F0; cursor: pointer; font-weight: bold;">取消</button>
+                    <button type="submit" class="btn-submit" style="flex: 1; padding: 12px; border-radius: 8px; border: none; background: #1E5E3A; color: white; cursor: pointer; font-weight: bold;">儲存修改</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>

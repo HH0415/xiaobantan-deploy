@@ -1,0 +1,327 @@
+@import "header.css";
+/* --- 基礎重設與變數 --- */
+:root {
+    --primary-color: #1E5E3A;
+    --primary-light: #E8F2EC;
+    --text-dark: #2D3748;
+    --text-muted: #718096;
+    --bg-light: #F4F9F5;
+    --white: #FFFFFF;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+}
+
+body {
+    color: var(--text-dark);
+    background-color: var(--white);
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* --- Hero 區塊樣式 --- */
+.hero-section {
+    /* 備註：此處背景圖可換成真實的小半天風景雲霧照 */
+    background: linear-gradient(rgba(255,255,255,0.75), rgba(255,255,255,0.85)), 
+                url('/Soa-USRcontest-frontend/img/tea-bg.jpg') no-repeat center center;
+    background-size: cover;
+    padding: 80px 0;
+}
+
+.hero-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+}
+
+.hero-left {
+    flex: 1.2;
+}
+
+.tag-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background-color: var(--primary-light);
+    color: var(--primary-color);
+    padding: 6px 16px;
+    border-radius: 30px;
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 24px;
+}
+
+.hero-title {
+    font-size: 42px;
+    color: var(--primary-color);
+    line-height: 1.3;
+    margin-bottom: 20px;
+}
+
+.hero-title .highlight {
+    color: var(--primary-color);
+    font-weight: 800;
+}
+
+.hero-desc {
+    color: #4A5568;
+    font-size: 16px;
+    margin-bottom: 30px;
+    max-width: 500px;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 16px;
+}
+
+.btn {
+    padding: 12px 28px;
+    border-radius: 30px;
+    font-size: 16px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: var(--white);
+}
+
+
+
+.btn-outline {
+    border: 1.5px solid var(--primary-color);
+    color: var(--primary-color);
+}
+
+.btn-outline:hover {
+    background-color: var(--primary-light);
+}
+
+/* 右側四格卡片 */
+.hero-right {
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.stat-card {
+    background: var(--white);
+    padding: 24px;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.03);
+    transition: transform 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+}
+
+.stat-num {
+    font-size: 32px;
+    font-weight: bold;
+    color: var(--primary-color);
+    margin-bottom: 4px;
+}
+
+.stat-label {
+    font-size: 15px;
+    font-weight: bold;
+    color: var(--text-dark);
+}
+
+.stat-sub {
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+/* --- 四季探索區塊 --- */
+.season-section {
+    background-color: var(--bg-light);
+    padding: 60px 0;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 30px;
+}
+
+.section-subtitle {
+    font-size: 14px;
+    color: var(--primary-color);
+    font-weight: 500;
+    display: block;
+    margin-bottom: 4px;
+}
+
+.section-title {
+    font-size: 28px;
+    color: var(--primary-color);
+}
+
+.view-map-link {
+    color: var(--primary-color);
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.season-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.season-card {
+    background: var(--white);
+    padding: 24px;
+    border-radius: 16px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+}
+
+.season-badge {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 16px;
+}
+
+.badge-spring { background-color: #FFE6EC; color: #FF5A79; }
+.badge-summer { background-color: #E6F9EE; color: #2BD474; }
+.badge-autumn { background-color: #FFF3E6; color: #FF9F29; }
+.badge-winter { background-color: #E6F4FE; color: #2B99FF; }
+
+.season-card h3 {
+    font-size: 18px;
+    margin-bottom: 8px;
+}
+
+.season-card p {
+    font-size: 14px;
+    color: var(--text-muted);
+}
+
+/* --- 任務區塊 (深綠背景) --- */
+.mission-section {
+    background-color: var(--primary-color);
+    color: var(--white);
+    padding: 80px 0;
+    text-align: center;
+}
+
+.mission-subtitle {
+    color: #A3D9B9;
+    font-size: 14px;
+    letter-spacing: 1px;
+}
+
+.mission-title {
+    font-size: 32px;
+    margin: 8px 0 16px;
+    font-weight: bold;
+}
+
+.mission-desc {
+    color: #E2E8F0;
+    max-width: 600px;
+    margin: 0 auto 50px;
+    font-size: 15px;
+}
+
+.mission-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+.mission-card {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    padding: 30px 24px;
+    border-radius: 16px;
+    text-align: left;
+    backdrop-filter: blur(5px);
+}
+
+.icon-box {
+    font-size: 24px;
+    margin-bottom: 16px;
+    background: rgba(255, 255, 255, 0.1);
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.mission-card h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.mission-card p {
+    color: #CBD5E0;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+/* --- Footer 頁尾 --- */
+.main-footer {
+    background-color: var(--bg-light);
+    padding: 20px;
+    text-align: center;
+    font-size: 13px;
+    color: var(--text-muted);
+    border-top: 1px solid #E2E8F0;
+}
+
+@media (max-width: 768px) {
+    .btn-primary {
+    padding: 12px 28px;
+    border-radius: 30px;
+    font-size: 14px;
+    font-weight: 500;
+    }
+    /* Hero 降為單欄，文字置中 */
+    .hero-container { flex-direction: column; text-align: center; padding: 40px 20px; }
+    .hero-title { font-size: 32px; }
+    .hero-desc { margin: 0 auto 24px; }
+    .hero-buttons { justify-content: center; width: 100%; }
+    .hero-buttons .btn { flex: 1; max-width: 160px; }
+    .hero-right { width: 100%; gap: 12px; }
+    .stat-card { padding: 16px; }
+
+    /* 四季標題排版拉開，卡片改 2 欄 */
+    .section-header { flex-direction: column; align-items: flex-start; gap: 12px; }
+    .season-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+
+    /* 任務區塊標題縮小，卡片變單欄直排 */
+    .mission-title { font-size: 24px; }
+    .mission-grid { grid-template-columns: 1fr; gap: 16px; }
+    
+    .main-footer { font-size: 11px; }
+}

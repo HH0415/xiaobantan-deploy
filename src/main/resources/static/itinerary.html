@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小半天 - AI 智慧行程規劃</title>
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/itinerary.css"> <script src="js/index.js" defer></script>
+    <script src="js/itinerary.js" defer></script>
+</head>
+<body>
+
+    <div id="header-placeholder"></div>
+
+    <main class="itinerary-main container mx-auto px-4 py-8" style="margin-top: 100px;">
+        <div class="itinerary-header mb-8 text-center">
+            <h1 class="text-3xl font-bold" style="color: #1E5E3A;">AI 智慧行程規劃</h1>
+            <p class="text-gray-500 mt-2">告訴我你想怎麼玩，AI 幫你排好專屬小半天之旅！</p>
+        </div>
+
+        <div class="itinerary-layout">
+            <div class="left-panel">
+                <div class="ai-search-box">
+                    <h3 class="box-title">AI 智慧推薦</h3>
+                    <textarea id="aiInput" placeholder="例如：我們是一對情侶，喜歡喝茶、拍網美照，步調想輕鬆一點..." rows="3"></textarea>
+                    <button id="btnAiRecommend" class="btn-ai-submit">
+                        <span>生成專屬行程</span>
+                        <div class="loader hidden" id="aiLoader"></div>
+                    </button>
+                </div>
+
+                <div class="spot-library">
+                    <div class="library-header">
+                        <h3 class="box-title">手動加入景點</h3>
+                        <div class="filter-group">
+                            <button class="filter-btn active" data-type="all">全部</button>
+                            <button class="filter-btn" data-type="scenic">官方景點</button>
+                            <button class="filter-btn" data-type="merchant">合作商家</button>
+                        </div>
+                    </div>
+                    <div id="availableSpots" class="spots-list">
+                        </div>
+                </div>
+            </div>
+
+            <div class="right-panel">
+                <div class="timeline-header">
+                    <h3 class="box-title">我的專屬行程</h3>
+                    <button id="btnClearItinerary" class="text-red-500 text-sm hover:underline">清空</button>
+                </div>
+                
+                <div class="timeline-container">
+                    <ul id="itineraryTimeline" class="timeline">
+                        <div id="emptyTimelineMsg" class="empty-state">
+                            還沒有安排行程喔！<br>請從左側加入景點，或讓 AI 幫你推薦。
+                        </div>
+                    </ul>
+                </div>
+
+                <button id="btnSaveItinerary" class="btn-save-itinerary hidden">儲存並建立導覽地圖</button>
+            </div>
+        </div>
+    </main>
+
+</body>
+</html>

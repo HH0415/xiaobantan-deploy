@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>商家後臺 - 設定解鎖任務</title>
+    <link rel="stylesheet" href="css/index.css"> 
+    <link rel="stylesheet" href="css/shop-manager.css"> 
+    <link rel="stylesheet" href="css/shop-game.css"> 
+    <style>
+        .card-icon img {
+            width: 100px;
+            height: 100px;
+            object-fit: contain;
+            margin: 0 auto 15px auto;
+            display: block;
+        }
+    </style>
+    <script src="js/index.js" defer></script>
+    <script src="js/shop-game.js" defer></script>
+</head>
+<body class="shop-bg">
+    <div id="header-placeholder"></div>
+    <main class="container shop-main">
+        <aside class="shop-sidebar">
+            <div class="shop-profile-brief">
+                <h3 id="sidebarMerchantName">商家名稱</h3>
+                <span class="badge-merchant">認證商家</span>
+            </div>
+            <nav class="shop-nav">
+                <button class="nav-btn" onclick="window.location.href='shop-profile.html'">編輯商家介紹</button>
+                <button class="nav-btn active" onclick="window.location.href='shop-game.html'">設定解鎖任務</button>
+            </nav>
+        </aside>
+
+        <section class="shop-content">
+            <div id="task-section" class="content-section">
+                <div class="content-header">
+                    <h2>設定解鎖任務</h2>
+                    <p>選擇並設定您的專屬互動小遊戲。遊客掃描 QR Code 成功通關後即可解鎖您的店鋪！</p>
+                </div>
+
+                <div class="task-type-selector">
+                    <label class="task-type-card active" id="typePuzzleCard">
+                        <input type="radio" name="taskType" value="puzzle" checked class="hidden-radio">
+                        <div class="card-icon">
+                            <img src="img/puzzle.png" alt="拼圖解鎖圖示">
+                        </div>
+                        <div class="card-text">拼圖解鎖</div>
+                    </label>
+                    <label class="task-type-card" id="typeQuizCard">
+                        <input type="radio" name="taskType" value="quiz" class="hidden-radio">
+                        <div class="card-icon">
+                            <img src="img/Q&A.png" alt="問答解鎖圖示">
+                        </div>
+                        <div class="card-text">問答解鎖</div>
+                    </label>
+                </div>
+
+                <div id="puzzleConfigArea" class="task-config-area">
+                    <div class="upload-box">
+                        <input type="file" id="puzzleImageInput" accept="image/*" class="file-input">
+                        <div class="upload-trigger" id="puzzleUploadTrigger">
+                            <p>點擊或拖曳圖片至此處上傳</p>
+                            <span class="file-hint">支援 JPG, PNG，檔案大小不超過 5MB</span>
+                        </div>
+                        <div id="imagePreview" class="image-preview hidden"></div>
+                    </div>
+                </div>
+
+                <div id="quizConfigArea" class="task-config-area hidden">
+                    <div class="quiz-management">
+                        <div class="form-group full-width" style="margin-bottom: 20px;">
+                            <label for="quizQuestion">問題題目</label>
+                            <input type="text" id="quizQuestion" class="input-field" placeholder="例如：小半天最有名的特產是什麼？">
+                        </div>
+                        <div class="form-grid" style="grid-template-columns: repeat(3, 1fr);">
+                            <div class="form-group"><label><span class="badge-opt a">A</span> 選項 A</label><input type="text" id="optionA" class="input-field"></div>
+                            <div class="form-group"><label><span class="badge-opt b">B</span> 選項 B</label><input type="text" id="optionB" class="input-field"></div>
+                            <div class="form-group"><label><span class="badge-opt c">C</span> 選項 C</label><input type="text" id="optionC" class="input-field"></div>
+                        </div>
+                        <div class="form-group" style="margin-top: 20px;">
+                            <label>正確答案</label>
+                            <select id="quizAnswer" class="select-custom">
+                                <option value="A">選項 A</option>
+                                <option value="B">選項 B</option>
+                                <option value="C">選項 C</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <button id="btnSaveTask" class="btn-save" style="margin-top: 30px; width: 100%;">發布此任務設定</button>
+            </div>
+        </section>
+
+        <div id="qrModal" class="qr-modal hidden" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); display: flex; justify-content: center; align-items: center; z-index: 1000;">
+            <div class="qr-modal-content" style="background: white; padding: 30px; border-radius: 16px; width: 90%; max-width: 350px; position: relative; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.2);">
+                <span id="closeQrModal" style="position: absolute; right: 20px; top: 15px; font-size: 28px; cursor: pointer; color: #666; font-weight: bold;">X</span>
+                <h3 style="margin-bottom: 20px; color: #1E5E3A; font-weight: bold; font-size: 18px;">專屬遊戲 QR Code</h3>
+                <div id="qrcodeContainer" class="qrcode-target" style="display: flex; justify-content: center; margin-bottom: 25px;"></div>
+                <button id="btnDownloadQR" class="btn-save" style="width: 100%; padding: 12px; border-radius: 8px; font-weight: bold; background: #1E5E3A; color: white; border: none; cursor: pointer;">下載 QR Code 圖片</button>
+            </div>
+        </div>
+    </main>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+</body>
+</html>

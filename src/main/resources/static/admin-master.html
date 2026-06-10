@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小半天 - 系統總覽</title>
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/admin-master.css">
+    <script src="js/index.js" defer></script>
+    <script src="js/admin-master.js" defer></script>
+</head>
+<body>
+
+    <div id="header-placeholder"></div>
+
+    <main class="dashboard-container container">
+        <div class="page-header">
+            <h1 class="text-3xl font-bold">系統營運數據總覽</h1>
+            <p class="text-gray-500 mt-2">監控全站流量、使用者活動與景點數據。</p>
+        </div>
+
+        <div class="stat-grid">
+            <div class="stat-card">
+                <div class="stat-label">總註冊使用者</div>
+                <div class="stat-value" id="totalUsers">--</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">合作商家數量</div>
+                <div class="stat-value" id="totalMerchants">--</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">地圖景點總數</div>
+                <div class="stat-value" id="totalSpots">--</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">任務完成總次數</div>
+                <div class="stat-value" id="totalTasks">--</div>
+            </div>
+        </div>
+
+        <div class="dashboard-details">
+            <div class="detail-card">
+                <h2 class="card-title">平台身分分佈</h2>
+                <div class="progress-container">
+                    <div class="progress-label" id="touristLabel">一般遊客 (0%)</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="touristBar" style="width: 0%; background: #319795;"></div>
+                    </div>
+                </div>
+                <div class="progress-container">
+                    <div class="progress-label" id="merchantLabel">合作商家 (0%)</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="merchantBar" style="width: 0%; background: #D69E2E;"></div>
+                    </div>
+                </div>
+                <div class="progress-container">
+                    <div class="progress-label" id="adminLabel">管理員 (0%)</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="adminBar" style="width: 0%; background: #E53E3E;"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="detail-card">
+                <h2 class="card-title">系統最新動態</h2>
+                <ul class="activity-list" id="activityList">
+                    <li class="activity-item">載入中...</li>
+                </ul>
+            </div>
+        </div>
+    </main>
+
+</body>
+</html>

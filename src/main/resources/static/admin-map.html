@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小半天 - 官方景點新增管理</title>
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/admin-map.css">
+    <script src="js/index.js" defer></script>
+    <script src="js/admin-map.js" defer></script>
+</head>
+<body>
+
+    <div id="header-placeholder"></div>
+
+    <main class="admin-map-container container">
+        <div class="page-header">
+            <h1 class="text-3xl font-bold" style="color: #2D3748;">官方景點新增與管理</h1>
+            <p class="text-gray-500 mt-2">在這裡新增的景點將直接發布至遊客端的地圖導覽與 AI 行程資料庫中。</p>
+        </div>
+
+        <div class="map-layout">
+            <div class="form-panel">
+                <h2 class="panel-title">新增官方景點</h2>
+                <form id="addSpotForm">
+                    <div class="form-group">
+                        <label class="form-label">景點名稱 <span class="text-red-500">*</span></label>
+                        <input type="text" id="spotName" class="form-input" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">景點地址 <span class="text-red-500">*</span></label>
+                        <input type="text" id="spotAddress" class="form-input" required>
+                    </div>
+
+                    <div class="grid-2">
+                        <div class="form-group">
+                            <label class="form-label">緯度 (Latitude)</label>
+                            <input type="number" step="any" id="spotLat" class="form-input">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">經度 (Longitude)</label>
+                            <input type="number" step="any" id="spotLng" class="form-input">
+                        </div>
+                    </div>
+
+                    <div class="grid-2">
+                        <div class="form-group">
+                            <label class="form-label">營運狀態 <span class="text-red-500">*</span></label>
+                            <select id="spotStatus" class="form-select" required>
+                                <option value="open">正常開放</option>
+                                <option value="maintenance">維護整修中</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">景點代表圖片</label>
+                            <div class="image-upload-area" onclick="document.getElementById('spotImage').click()">
+                                <span class="text-gray-500">點擊上傳圖片</span>
+                                <input type="file" id="spotImage" accept="image/*" style="display: none;">
+                                <img id="previewSpotImg" class="preview-img mx-auto">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">景點描述 <span class="text-red-500">*</span></label>
+                        <textarea id="spotDesc" class="form-textarea" rows="4" required></textarea>
+                    </div>
+
+                    <button type="submit" class="btn-submit">發布景點至地圖</button>
+                </form>
+            </div>
+
+            <div class="list-panel">
+                <h2 class="panel-title">現有官方景點清單</h2>
+                <div class="table-responsive">
+                    <table class="spots-table">
+                        <thead>
+                            <tr>
+                                <th>景點名稱</th>
+                                <th>地址</th>
+                                <th>狀態</th>
+                                <th class="text-center">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody id="spotsTableBody">
+                            <tr>
+                                <td colspan="4" class="text-center text-gray-500 py-4">資料載入中...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <h2 class="panel-title">修改官方景點</h2>
+            <form id="editSpotForm">
+                <input type="hidden" id="editSpotId">
+                <div class="form-group">
+                    <label class="form-label">景點名稱 <span class="text-red-500">*</span></label>
+                    <input type="text" id="editSpotName" class="form-input" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">景點地址 <span class="text-red-500">*</span></label>
+                    <input type="text" id="editSpotAddress" class="form-input" required>
+                </div>
+
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label class="form-label">緯度 (Latitude)</label>
+                        <input type="number" step="any" id="editSpotLat" class="form-input">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">經度 (Longitude)</label>
+                        <input type="number" step="any" id="editSpotLng" class="form-input">
+                    </div>
+                </div>
+
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label class="form-label">營運狀態 <span class="text-red-500">*</span></label>
+                        <select id="editSpotStatus" class="form-select" required>
+                            <option value="open">正常開放</option>
+                            <option value="maintenance">維護整修中</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">更換代表圖片</label>
+                        <div class="image-upload-area" onclick="document.getElementById('editSpotImage').click()">
+                            <span class="text-gray-500">點擊上傳新圖片</span>
+                            <input type="file" id="editSpotImage" accept="image/*" style="display: none;">
+                            <img id="editPreviewSpotImg" class="preview-img mx-auto">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">景點描述 <span class="text-red-500">*</span></label>
+                    <textarea id="editSpotDesc" class="form-textarea" rows="4" required></textarea>
+                </div>
+
+                <div class="grid-2">
+                    <button type="button" class="btn-cancel" onclick="closeEditModal()">取消</button>
+                    <button type="submit" class="btn-submit" style="margin-top: 0;">儲存修改</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="adminQrModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); justify-content: center; align-items: center; z-index: 1000;">
+        <div style="background: white; padding: 30px; border-radius: 16px; width: 90%; max-width: 350px; position: relative; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.2);">
+            <span onclick="closeAdminQrModal()" style="position: absolute; right: 20px; top: 15px; font-size: 28px; cursor: pointer; color: #666; font-weight: bold;">&times;</span>
+            
+            <h3 id="adminQrModalTitle" style="margin-bottom: 20px; color: #2B6CB0; font-weight: bold; font-size: 18px;">景點 QR Code</h3>
+            
+            <div id="adminQrcodeContainer" style="display: flex; justify-content: center; margin-bottom: 25px;"></div>
+            
+            <button id="btnDownloadAdminQR" style="width: 100%; padding: 12px; border-radius: 8px; font-weight: bold; background: #2B6CB0; color: white; border: none; cursor: pointer; transition: 0.2s;">下載 QR Code 圖片</button>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+</body>
+</html>

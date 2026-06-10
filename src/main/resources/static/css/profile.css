@@ -1,0 +1,12 @@
+/* 徽章樣式邏輯 */
+.badge-card { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+.badge-locked { filter: grayscale(1) opacity(0.35); }
+.badge-unlocked:hover { 
+    transform: translateY(-5px) scale(1.03); 
+    box-shadow: 0 10px 25px rgba(46, 125, 79, 0.15); 
+}
+
+/* 確保 main 與 header 對齊 */
+main.container {
+    max-width: 1200px;
+}

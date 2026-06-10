@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>個人成就 - 小半天互動導覽</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/profile.css">
+    
+    <script src="js/index.js" defer></script>
+    <script src="js/profile.js" defer></script>
+</head>
+<body class="bg-[#F4F9F1]">
+
+    <div id="header-placeholder"></div>
+
+    <main class="container mx-auto px-4 md:px-6 py-10">
+        
+        <div class="bg-white rounded-3xl border border-emerald-100 p-6 md:p-10 shadow-sm mb-10 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="flex items-center gap-6">
+                <div class="w-20 h-20 bg-emerald-100 rounded-full flex items-center justify-center text-3xl">👤</div>
+                <div>
+                    <h1 class="text-3xl font-bold text-gray-800"><span id="user-display-name">旅人</span> 的山城足跡</h1>
+                    <p class="text-gray-500 mt-1">探索小半天，解鎖在地商家的隱藏成就！</p>
+                </div>
+            </div>
+            
+            <div class="flex gap-4">
+                <div class="bg-emerald-50 rounded-2xl p-4 w-32 text-center border border-emerald-100">
+                    <p class="text-xs text-emerald-700 mb-1">總積分</p>
+                    <p id="total-points" class="text-3xl font-bold text-emerald-800 font-['Playfair_Display']">0</p>
+                </div>
+                <div class="bg-emerald-800 rounded-2xl p-4 w-32 text-center text-white shadow-lg">
+                    <p class="text-xs text-emerald-200 mb-1">已解鎖</p>
+                    <p id="completed-count" class="text-3xl font-bold font-['Playfair_Display']">0</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-10">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-2">
+                <i data-lucide="award" class="text-emerald-700"></i> 小半天榮譽徽章牆
+            </h2>
+            <div id="badge-wall-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4"></div>
+        </div>
+
+        <div class="bg-white rounded-3xl border border-emerald-100 p-8 shadow-sm">
+            <h2 class="text-lg font-bold text-gray-800 mb-6 flex items-center gap-2">
+                <i data-lucide="calendar-days" class="text-emerald-700"></i> 最近通關日誌
+            </h2>
+            <div id="adventure-log-timeline" class="space-y-4">
+                <p id="no-log-text" class="text-gray-400 text-center py-4">目前還沒有探險紀錄。</p>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

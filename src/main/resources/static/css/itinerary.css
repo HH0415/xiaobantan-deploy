@@ -1,0 +1,264 @@
+/* itinerary.css */
+.itinerary-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    align-items: start;
+}
+
+.box-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #1E5E3A;
+    margin-bottom: 12px;
+}
+
+/* 左側 AI 搜尋區 */
+.ai-search-box {
+    background: linear-gradient(145deg, #F0FDF4, #E6FFFA);
+    border: 1px solid #B2F5EA;
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 24px;
+}
+
+.ai-search-box textarea {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #CBD5E0;
+    resize: none;
+    outline: none;
+    margin-bottom: 12px;
+}
+
+.ai-search-box textarea:focus {
+    border-color: #319795;
+    box-shadow: 0 0 0 3px rgba(49, 151, 149, 0.1);
+}
+
+.btn-ai-submit {
+    width: 100%;
+    background-color: #319795;
+    color: white;
+    padding: 12px;
+    border-radius: 8px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    transition: 0.2s;
+}
+
+.btn-ai-submit:hover { background-color: #285E61; }
+
+/* 景點庫列表 */
+.spot-library {
+    background: #FFFFFF;
+    border-radius: 16px;
+    padding: 20px;
+    border: 1px solid #E2E8F0;
+    height: 600px;
+    display: flex;
+    flex-direction: column;
+}
+
+.library-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.filter-group {
+    display: flex;
+    gap: 8px;
+}
+
+.filter-btn {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    background: #EDF2F7;
+    color: #4A5568;
+}
+
+.filter-btn.active {
+    background: #1E5E3A;
+    color: white;
+}
+
+.spots-list {
+    flex: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding-right: 8px;
+}
+
+.spot-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+    border: 1px solid #E2E8F0;
+    border-radius: 12px;
+    transition: 0.2s;
+}
+
+.spot-card:hover { border-color: #1E5E3A; }
+
+.spot-info h4 { font-weight: bold; color: #2D3748; }
+.spot-info p { font-size: 12px; color: #718096; }
+
+.btn-add {
+    background: #EDF2F7;
+    color: #1E5E3A;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 18px;
+}
+.btn-add:hover { background: #1E5E3A; color: white; }
+
+/* 右側 時間軸區 */
+.right-panel {
+    background: #FFFFFF;
+    border-radius: 16px;
+    padding: 24px;
+    border: 1px solid #E2E8F0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.timeline-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.timeline-container {
+    flex: 1;
+    overflow-y: auto;
+}
+
+.timeline {
+    position: relative;
+    padding-left: 20px;
+    list-style: none;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: #E2E8F0;
+}
+
+.timeline-item {
+    position: relative;
+    padding-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -25px;
+    top: 5px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #1E5E3A;
+    border: 2px solid white;
+    box-shadow: 0 0 0 2px #1E5E3A;
+}
+
+.timeline-content {
+    background: #F7FAFC;
+    padding: 12px 16px;
+    border-radius: 12px;
+    width: 85%;
+}
+
+.btn-remove {
+    color: #E53E3A;
+    padding: 8px;
+    font-size: 20px;
+}
+
+.btn-save-itinerary {
+    margin-top: 20px;
+    background: #1E5E3A;
+    color: white;
+    padding: 16px;
+    border-radius: 12px;
+    font-weight: bold;
+    text-align: center;
+    transition: 0.2s;
+}
+
+.btn-save-itinerary:hover { background: #15452a; }
+
+.empty-state {
+    text-align: center;
+    color: #A0AEC0;
+    padding: 40px 0;
+}
+
+.loader {
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid white;
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+/* RWD 手機版 */
+@media (max-width: 768px) {
+    .itinerary-layout { grid-template-columns: 1fr; }
+}
+
+/* --- 清空按鈕專屬樣式 --- */
+#btnClearItinerary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    background-color: #FFF5F5; /* 輕柔的淺紅底色 */
+    color: #E53E3E;          /* 警示紅文字 */
+    border: 1px solid #FED7D7; /* 極淡的紅色邊框 */
+    padding: 6px 14px;
+    border-radius: 20px;     /* 膠囊造型 */
+    font-size: 13px;
+    font-weight: 600;        /* 稍微加粗 */
+    cursor: pointer;
+    transition: all 0.2s ease;
+    outline: none;
+}
+
+#btnClearItinerary:hover {
+    background-color: #FED7D7; /* hover 時顏色加深 */
+    color: #C53030;
+    transform: translateY(-1px); /* 微小懸浮效果 */
+}
+
+#btnClearItinerary:active {
+    transform: translateY(1px); /* 點擊時下壓感 */
+}

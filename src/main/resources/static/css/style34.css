@@ -1,0 +1,159 @@
+/* =========================
+   Theme Variables
+========================= */
+
+:root {
+  --font-size: 16px;
+
+  --background: #F4F9F1;
+  --foreground: #1A3322;
+
+  --card: #FFFFFF;
+  --card-foreground: #1A3322;
+
+  --primary: #2E7D4F;
+  --primary-foreground: #FFFFFF;
+
+  --secondary: #E3F2E9;
+  --secondary-foreground: #1A3322;
+
+  --muted: #EAF4EC;
+  --muted-foreground: #5A7A64;
+
+  --accent: #52B56F;
+  --accent-foreground: #FFFFFF;
+
+  --destructive: #c0392b;
+
+  --border: rgba(46, 125, 79, 0.18);
+
+  --radius: 0.625rem;
+
+  --font-weight-medium: 500;
+  --font-weight-normal: 400;
+}
+
+/* =========================
+   Global
+========================= */
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-size: var(--font-size);
+}
+
+/* =========================
+   Theme Utility Classes
+========================= */
+
+.bg-background {
+  background-color: var(--background);
+}
+
+.text-foreground {
+  color: var(--foreground);
+}
+
+.bg-card {
+  background-color: var(--card);
+}
+
+.border-theme-border {
+  border-color: var(--border);
+}
+
+.bg-primary {
+  background-color: var(--primary);
+}
+
+.text-primary {
+  color: var(--primary);
+}
+
+.border-primary {
+  border-color: var(--primary);
+}
+
+.text-primary-foreground {
+  color: var(--primary-foreground);
+}
+
+.bg-secondary {
+  background-color: var(--secondary);
+}
+
+.text-secondary-foreground {
+  color: var(--secondary-foreground);
+}
+
+.border-secondary {
+  border-color: var(--secondary);
+}
+
+.bg-muted {
+  background-color: var(--muted);
+}
+
+.text-muted-foreground {
+  color: var(--muted-foreground);
+}
+
+.bg-accent {
+  background-color: var(--accent);
+}
+
+.text-accent {
+  color: var(--accent);
+}
+
+.border-accent {
+  border-color: var(--accent);
+}
+
+.text-accent-foreground {
+  color: var(--accent-foreground);
+}
+
+.bg-destructive {
+  background-color: var(--destructive);
+}
+
+.text-destructive {
+  color: var(--destructive);
+}
+
+/* =========================
+   Radius
+========================= */
+
+.rounded-theme {
+  border-radius: var(--radius);
+}
+
+.rounded-theme-lg {
+  border-radius: calc(var(--radius) + 4px);
+}
+
+.rounded-theme-sm {
+  border-radius: calc(var(--radius) - 4px);
+}
+
+/* =========================
+   Typography
+========================= */
+
+h1,
+h2,
+h3,
+h4,
+label,
+button {
+  font-weight: var(--font-weight-medium);
+  line-height: 1.5;
+}
+
+input {
+  font-weight: var(--font-weight-normal);
+  line-height: 1.5;
+}

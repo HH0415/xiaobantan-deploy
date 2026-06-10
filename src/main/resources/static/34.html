@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>小半天互動任務系統</title>
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- Lucide -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- 連接 CSS -->
+  <link rel="stylesheet" href="./css/style34.css">
+</head>
+
+<body class="font-['DM_Sans']">
+
+  <!-- 導覽列 -->
+  <div class="fixed top-0 left-0 right-0 bg-white/80 backdrop-blur border-b border-theme-border z-50">
+    <div class="max-w-5xl mx-auto px-8 flex justify-center gap-6">
+
+      <button
+        id="tab-puzzle"
+        onclick="switchSection('puzzle')"
+        class="py-4 text-sm border-b-2 border-primary text-primary flex items-center gap-2"
+      >
+        <i data-lucide="puzzle" class="w-4 h-4"></i>
+        互動拼圖任務
+      </button>
+
+      <button
+        id="tab-quiz"
+        onclick="switchSection('quiz')"
+        class="py-4 text-sm border-b-2 border-transparent text-muted-foreground hover:text-primary flex items-center gap-2"
+      >
+        <i data-lucide="help-circle" class="w-4 h-4"></i>
+        食農知識問答
+      </button>
+
+    </div>
+  </div>
+
+  <!-- 拼圖區 -->
+  <div id="puzzle-section" class="min-h-screen pt-24 bg-background">
+
+    <div class="max-w-5xl mx-auto px-8 py-12">
+
+      <p class="font-['DM_Mono'] text-xs text-accent tracking-[0.2em] uppercase mb-2">
+        互動拼圖任務
+      </p>
+
+      <h2 class="font-['Playfair_Display'] text-4xl text-primary mb-1 font-bold">
+        還原小半天美景
+      </h2>
+
+      <p class="text-sm text-muted-foreground mb-8">
+        拖曳交換拼塊，完成在地景觀拼圖，解鎖任務徽章！
+      </p>
+
+      <!-- 圖片切換 -->
+      <div id="image-selector" class="flex gap-2 mb-8 flex-wrap"></div>
+
+      <div class="flex flex-col lg:flex-row gap-10 items-center justify-center">
+
+        <!-- 左側資訊 -->
+        <div class="flex flex-col gap-4" style="width: 360px;">
+
+          <!-- 目標圖 -->
+          <div class="bg-card rounded-theme-lg border border-theme-border p-5 shadow-sm">
+
+            <p class="font-['DM_Mono'] text-[10px] text-muted-foreground uppercase tracking-wider mb-3">
+              目標圖像
+            </p>
+
+            <img
+              id="target-img"
+              src=""
+              alt="目標圖像"
+              class="w-full aspect-square object-cover rounded-theme"
+              style="width: 360px; height: 360px;"
+            >
+
+            <p
+              id="target-label"
+              class="text-xs text-muted-foreground mt-2 text-center"
+            ></p>
+
+          </div>
+
+          <!-- 步數 -->
+          <div class="bg-card rounded-theme-lg border border-theme-border p-6 shadow-sm">
+
+            <p class="font-['DM_Mono'] text-[10px] text-muted-foreground uppercase tracking-wider mb-1">
+              目前步數
+            </p>
+
+            <p
+              id="move-count"
+              class="font-['Playfair_Display'] text-5xl text-primary font-bold"
+            >
+              0
+            </p>
+
+          </div>
+
+          <!-- 重置按鈕 -->
+          <button
+            onclick="resetPuzzle()"
+            class="flex items-center justify-center gap-2 border-2 border-theme-border text-muted-foreground px-6 py-3 rounded-full text-sm hover:border-primary hover:text-primary bg-white transition-colors"
+          >
+            <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i>
+            重新打亂
+          </button>
+
+        </div>
+
+        <!-- 拼圖區 -->
+        <div class="relative" style="width: 360px; height: 360px;">
+
+          <!-- 完成遮罩 -->
+          <div
+            id="solved-mask"
+            class="hidden absolute inset-0 z-20 flex flex-col items-center justify-center bg-white/95 rounded-theme-lg gap-5"
+          >
+
+            <div class="w-16 h-16 bg-accent rounded-full flex items-center justify-center shadow-lg">
+              <i data-lucide="check" class="w-8 h-8 text-white"></i>
+            </div>
+
+            <div class="text-center">
+              <p class="font-['Playfair_Display'] text-3xl text-primary font-bold">
+                任務完成！
+              </p>
+
+              <p
+                id="final-moves"
+                class="text-sm text-muted-foreground mt-1"
+              >
+                共 0 步完成拼圖
+              </p>
+            </div>
+
+            <div class="flex items-center gap-2 bg-secondary border border-theme-border rounded-full px-5 py-2">
+              <i data-lucide="star" class="w-4 h-4 text-accent fill-current"></i>
+              <span class="text-sm text-primary font-medium">
+                景點旗幟徽章已解鎖
+              </span>
+            </div>
+
+            <button
+              onclick="switchSection('quiz')"
+              class="flex items-center gap-2 bg-primary text-primary-foreground px-7 py-2.5 rounded-full text-sm hover:opacity-90 transition-colors shadow-sm"
+            >
+              前往知識挑戰
+              <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
+            </button>
+
+          </div>
+
+          <!-- 拼圖格 -->
+          <div
+            id="puzzle-grid"
+            class="grid border-2 border-theme-border rounded-theme overflow-hidden shadow-md"
+            style="grid-template-columns: repeat(4, 90px); width: 360px; height: 360px;"
+          ></div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- 問答區 -->
+  <div id="quiz-section" class="hidden min-h-screen pt-24 bg-background">
+
+    <div class="max-w-2xl mx-auto px-8 py-12">
+
+      <p class="font-['DM_Mono'] text-xs text-accent tracking-[0.2em] uppercase mb-2">
+        食農知識問答
+      </p>
+
+      <h2 class="font-['Playfair_Display'] text-4xl text-primary mb-1 font-bold">
+        小半天知識挑戰
+      </h2>
+
+      <p class="text-sm text-muted-foreground mb-10">
+        測試你對在地文化、茶葉與自然景觀的了解程度
+      </p>
+
+      <!-- 問答內容 -->
+      <div id="quiz-content" class="flex flex-col gap-5">
+
+        <div class="flex items-center gap-4">
+
+          <div id="progress-bars" class="flex gap-1.5 flex-1"></div>
+
+          <span
+            id="quiz-number"
+            class="font-['DM_Mono'] text-xs text-muted-foreground flex-shrink-0"
+          >
+            1/5
+          </span>
+
+        </div>
+
+        <div class="inline-flex items-center gap-2 self-start bg-secondary border border-theme-border rounded-full px-3 py-1">
+
+          <i data-lucide="map-pin" class="w-3 h-3 text-primary"></i>
+
+          <span
+            id="quiz-spot"
+            class="text-xs text-muted-foreground"
+          >
+            關卡景點：
+          </span>
+
+        </div>
+
+        <div class="bg-card rounded-theme-lg border border-theme-border shadow-sm p-8">
+
+          <p
+            id="quiz-question"
+            class="font-['Playfair_Display'] text-2xl text-primary leading-snug font-bold"
+          ></p>
+
+        </div>
+
+        <!-- 選項 -->
+        <div id="quiz-options" class="flex flex-col gap-2.5"></div>
+
+        <!-- 下一題 -->
+        <button
+          id="next-btn"
+          onclick="nextQuestion()"
+          class="hidden flex items-center justify-center gap-2 bg-primary text-primary-foreground py-3.5 rounded-full text-sm font-medium hover:opacity-90 transition-colors shadow-sm"
+        >
+          下一題
+          <i data-lucide="chevron-right" class="w-4 h-4"></i>
+        </button>
+
+      </div>
+
+      <!-- 結果 -->
+      <div
+        id="quiz-result"
+        class="hidden bg-card rounded-theme-lg border border-theme-border shadow-md p-12 flex flex-col items-center gap-6 text-center"
+      >
+
+        <div
+          id="result-badge-container"
+          class="w-20 h-20 rounded-full flex items-center justify-center"
+        >
+          <i data-lucide="star" class="w-10 h-10"></i>
+        </div>
+
+        <div>
+
+          <p class="font-['DM_Mono'] text-xs text-muted-foreground tracking-wider uppercase mb-2">
+            你的稱號
+          </p>
+
+          <p
+            id="result-grade"
+            class="font-['Playfair_Display'] text-4xl font-bold mb-1"
+          ></p>
+
+          <p
+            id="result-score"
+            class="text-muted-foreground text-base"
+          ></p>
+
+        </div>
+
+        <div class="w-full bg-secondary rounded-full h-3 overflow-hidden">
+
+          <div
+            id="result-progress"
+            class="h-full rounded-full transition-all duration-700"
+            style="width: 0%;"
+          ></div>
+
+        </div>
+
+        <p
+          id="result-text"
+          class="text-sm text-muted-foreground"
+        ></p>
+
+        <button
+          onclick="resetQuiz()"
+          class="flex items-center gap-2 bg-primary text-primary-foreground px-8 py-3 rounded-full text-sm hover:opacity-90 transition-colors shadow-sm"
+        >
+          <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i>
+          再次挑戰
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- 連接 JS -->
+  <script src="./js/script34.js"></script>
+
+</body>
+</html>

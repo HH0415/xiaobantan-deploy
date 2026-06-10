@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小半天 - 地圖導覽</title>
+    
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    
+    <link rel="stylesheet" href="css/index.css"> 
+    <link rel="stylesheet" href="css/mapping.css"> 
+    
+    <script src="https://unpkg.com/html5-qrcode"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    
+    <script src="js/index.js" defer></script>
+    <script src="js/mapping.js" defer></script>
+</head>
+<body class="map-page-bg">
+
+    <div id="header-placeholder"></div>
+
+    <main class="container map-main">
+        
+        <div class="map-top-bar">
+            <div class="page-title-area">
+                <span class="subtitle-green">地圖導覽</span>
+                <h2 class="main-title-green">小半天景點旗幟地圖</h2>
+                <p class="desc-text">點擊地圖上的旗幟探索景點，現場掃描 QR Code 互動</p>
+            </div>
+            
+            <div class="map-actions-bar">
+                <div class="filter-group">
+                    <button class="btn-filter active">全部</button>
+                    <button class="btn-filter">官方景點</button>
+                    <button class="btn-filter">合作商家</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="map-layout-grid">
+            
+            <div class="map-visual-container">
+                <div id="map" class="map-canvas"></div>
+                
+                <div class="map-legend">
+                    <div class="legend-item">
+                        <span class="legend-icon official-legend"></span> 官方景點 (點擊探索)
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-icon merchant-legend"></span> 合作商家 (需掃描解鎖)
+                    </div>
+                </div>
+            </div>
+
+            <div class="map-sidebar">
+                <div class="hint-card">
+                    <div class="hint-icon"></div>
+                    <p>點擊地圖上的旗幟<br>查看景點詳細資訊</p>
+                </div>
+
+                <div class="spot-list-group" id="spotListGroup">
+                    <div style="text-align:center; padding: 20px; color:#A0AEC0;">載入景點資料中...</div>
+                </div>
+            </div>
+            
+        </div>
+    </main>
+
+    <div id="scanModal" class="scan-modal hidden" style="display: none;">
+        <div class="scan-modal-content">
+            <div class="scan-modal-header">
+                <h3 id="scanModalTitle">相機掃描 QR Code</h3>
+                <button id="closeScanBtn" class="btn-close-modal">&times;</button>
+            </div>
+            <div id="reader" class="scanner-view"></div>
+            <p class="scan-hint">請將手機鏡頭對準實體店面的 QR Code</p>
+        </div>
+    </div>
+</body>
+</html>

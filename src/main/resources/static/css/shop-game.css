@@ -1,0 +1,107 @@
+/* --- 任務類型選擇器樣式 --- */
+.task-type-selector {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.task-type-card {
+    flex: 1;
+    border: 2px solid #E2E8F0;
+    border-radius: 16px;
+    padding: 24px 16px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: #FAFAFA;
+    display: block;
+}
+
+.task-type-card.active {
+    border-color: #1E5E3A;
+    background: #E6F4EA;
+    box-shadow: 0 4px 12px rgba(30, 94, 58, 0.1);
+}
+
+.task-type-card:hover:not(.active) {
+    border-color: #A3D9B9;
+    background: #FFFFFF;
+}
+
+/* 強制隱藏醜醜的圓圈單選按鈕 */
+.hidden-radio {
+    display: none !important;
+}
+
+.card-icon {
+    font-size: 32px;
+    margin-bottom: 12px;
+}
+
+.card-text {
+    font-size: 16px;
+    font-weight: bold;
+    color: #2D3748;
+}
+
+.task-type-card.active .card-text {
+    color: #1E5E3A;
+}
+
+.task-config-area {
+    animation: fadeInTask 0.3s ease;
+}
+
+@keyframes fadeInTask {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- 選項標籤 --- */
+.badge-opt {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    font-size: 11px;
+    font-weight: bold;
+    border-radius: 50%;
+    color: #FFFFFF;
+    margin-right: 4px;
+}
+.badge-opt.a { background-color: #FF5A79; }
+.badge-opt.b { background-color: #2BD474; }
+.badge-opt.c { background-color: #FF9F29; }
+
+/* --- 圖片上傳區 --- */
+.upload-box {
+    border: 2px dashed #CBD5E0;
+    border-radius: 16px;
+    padding: 40px 20px;
+    text-align: center;
+    position: relative;
+    cursor: pointer;
+    background-color: #FAFAFA;
+    margin-bottom: 20px;
+    transition: 0.2s;
+}
+.upload-box:hover { border-color: #1E5E3A; }
+.file-input {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    opacity: 0; cursor: pointer;
+}
+.file-hint { font-size: 12px; color: #718096; display: block; margin-top: 8px; }
+
+@media (max-width: 768px) {
+    .task-type-selector { flex-direction: column; gap: 12px; }
+}
+
+.card-icon img {
+            width: 100px;
+            height: 100px;
+            object-fit: contain;
+            margin: 0 auto 15px auto;
+            display: block;
+        }

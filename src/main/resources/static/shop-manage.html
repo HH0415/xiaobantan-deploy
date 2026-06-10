@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>商家後臺 - 小半天</title>
+    <link rel="stylesheet" href="css/index.css"> 
+    <link rel="stylesheet" href="css/shop-manager.css"> 
+    <script src="js/index.js" defer></script>
+    <script src="js/shop-manager.js" defer></script>
+</head>
+<body class="shop-bg">
+    <div id="header-placeholder"></div>
+    <main class="container shop-main">
+        <aside class="shop-sidebar">
+            <div class="shop-profile-brief">
+                <h3 id="sidebarMerchantName">商家名稱</h3>
+                <span class="badge-merchant">認證商家</span>
+            </div>
+            <nav class="shop-nav">
+                <button class="nav-btn active" onclick="window.location.href='shop-manager.html'">修改基本資料</button>
+            </nav>
+        </aside>
+
+        <section class="shop-content">
+            <div id="profile-section" class="content-section">
+                <div class="content-header">
+                    <h2>修改基本資料</h2>
+                    <p>更新您在小半天導覽地圖上的商家公開資訊</p>
+                </div>
+                <form id="merchantForm" class="merchant-form">
+                    <div class="form-grid">
+                        <div class="form-group"><label>商家名稱 <span class="required">*</span></label><input type="text" id="shopName" required></div>
+                        <div class="form-group">
+                            <label>營業狀態 <span class="required">*</span></label>
+                            <select id="shopStatus">
+                                <option value="OPEN">營業中</option>
+                                <option value="CLOSED">休息</option>
+                            </select>
+                        </div>
+                        <div class="form-group"><label>聯絡電話 <span class="required">*</span></label><input type="tel" id="shopPhone" required></div>
+                        <div class="form-group">
+                            <label>服務類型</label>
+                            <select id="shopCategory">
+                                <option value="TEA">茶行</option>
+                                <option value="FOOD">餐飲</option>
+                            </select>
+                        </div>
+                        <div class="form-group full-width"><label>完整地址 <span class="required">*</span></label><input type="text" id="shopAddress" required></div>
+                        <div class="form-group full-width"><label>詳細介紹</label><textarea id="shopDescription" rows="3"></textarea></div>
+                        <div class="form-group full-width"><label>專屬優惠說明</label><textarea id="shopDiscount" rows="2"></textarea></div>
+                        <div class="form-group full-width">
+                            <label>店家封面圖片</label>
+                            <div class="shop-cover-upload">
+                                <input type="file" id="shopCoverInput" accept="image/*" class="file-input">
+                                <div class="upload-trigger" id="coverUploadTrigger"><p>點擊上傳封面圖</p></div>
+                                <div id="coverPreview" class="cover-preview hidden"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn-save">儲存修改</button>
+                        <button type="button" id="btnPreviewShop" class="btn-preview">預覽遊客畫面</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <div id="previewModal" class="qr-modal hidden">
+            <div class="preview-modal-content">
+                <span id="closePreviewModal" class="qr-modal-close">&times;</span>
+                <div class="preview-phone-shell">
+                    <div class="phone-screen">
+                        <div class="tourist-view-cover" id="viewCover"></div>
+                        <div class="tourist-view-body">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                                <span id="viewStatus" style="font-size: 12px; color: white; padding: 2px 8px; border-radius: 4px;"></span>
+                                <span id="viewCategory" style="font-size: 12px; color: #718096; font-weight: bold;"></span>
+                            </div>
+                            
+                            <h2 class="tourist-shop-name" id="viewShopName"></h2>
+                            <p class="tourist-info-text" id="viewAddress"></p>
+                            <p class="tourist-info-text" id="viewPhone" style="color: #1E5E3A; font-weight: 500;"></p>
+                            
+                            <div class="tourist-section-title">關於我們</div>
+                            <p class="tourist-desc" id="viewDescription"></p>
+                            <div class="tourist-discount-card" id="viewDiscount"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

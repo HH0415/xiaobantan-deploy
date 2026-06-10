@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小半天互動任務解鎖</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/index34.css">
+    <script src="js/index.js" defer></script>
+    <script src="js/index34.js" defer></script>
+</head>
+<body class="font-['DM_Sans'] bg-background text-foreground">
+
+    <div id="header-placeholder"></div>
+
+    <div id="loading-screen" class="min-h-screen pt-24 flex flex-col items-center justify-center">
+        <p class="text-muted-foreground tracking-widest">正在載入專屬任務...</p>
+    </div>
+
+    <div id="puzzle-section" class="hidden min-h-screen pt-24 pb-12">
+        <div class="max-w-5xl mx-auto px-8 py-12 flex flex-col items-center">
+            <p class="font-['DM_Mono'] text-xs text-accent tracking-[0.2em] uppercase mb-2">互動拼圖任務</p>
+            <h2 class="font-['Playfair_Display'] text-4xl text-primary mb-1 font-bold text-center">還原店家專屬圖片</h2>
+            <p class="text-sm text-muted-foreground mb-10 text-center">拖曳交換拼塊完成拼圖，解鎖任務徽章與專屬優惠！</p>
+
+            <div class="flex flex-col lg:flex-row gap-10 items-center justify-center w-full">
+                <div class="flex flex-col gap-4 w-full max-w-[300px]">
+                    <div class="bg-card rounded-theme-lg border border-theme-border p-5 shadow-sm text-center">
+                        <p class="font-['DM_Mono'] text-[10px] text-muted-foreground uppercase tracking-wider mb-3">目標圖像</p>
+                        <div id="target-img" class="w-full aspect-square bg-cover bg-center rounded-theme shadow-inner border border-gray-100"></div>
+                    </div>
+                    <div class="bg-card rounded-theme-lg border border-theme-border p-6 shadow-sm text-center">
+                        <p class="font-['DM_Mono'] text-[10px] text-muted-foreground uppercase tracking-wider mb-1">目前步數</p>
+                        <p id="move-count" class="font-['Playfair_Display'] text-5xl text-primary font-bold">0</p>
+                    </div>
+                    <button onclick="resetPuzzle()" class="flex items-center justify-center gap-2 border-2 border-theme-border text-muted-foreground px-6 py-3 rounded-full text-sm hover:border-primary hover:text-primary bg-white transition-colors w-full">
+                        重新打亂
+                    </button>
+                </div>
+
+                <div class="relative shadow-xl rounded-theme overflow-hidden border-4 border-primary bg-gray-100" style="width: 308px; height: 308px;">
+                    <div id="puzzle-grid" class="grid gap-[2px]" style="grid-template-columns: repeat(3, 100px); grid-template-rows: repeat(3, 100px); width: 304px; height: 304px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="quiz-section" class="hidden min-h-screen pt-24 pb-12">
+        <div class="max-w-2xl mx-auto px-8 py-12">
+            <p class="font-['DM_Mono'] text-xs text-accent tracking-[0.2em] uppercase mb-2 text-center">店家知識問答</p>
+            <h2 class="font-['Playfair_Display'] text-4xl text-primary mb-1 font-bold text-center">專屬任務挑戰</h2>
+            <p class="text-sm text-muted-foreground mb-10 text-center">答對店家的專屬問題，即可解鎖優惠！</p>
+
+            <div class="flex flex-col gap-6">
+                <div class="bg-card rounded-theme-lg border-2 border-theme-border shadow-sm p-8 text-center relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-accent"></div>
+                    <p id="quiz-question" class="font-['Playfair_Display'] text-2xl text-primary leading-snug font-bold mt-2"></p>
+                </div>
+                <div id="quiz-options" class="flex flex-col gap-3"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="success-section" class="hidden min-h-screen pt-24 pb-12 flex flex-col items-center justify-center bg-background">
+        <div class="max-w-md w-full px-8">
+            <div class="bg-card rounded-theme-lg border-2 border-primary shadow-xl p-10 flex flex-col items-center text-center relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-full h-2 bg-primary"></div>
+                <div class="w-24 h-24 bg-secondary rounded-full flex items-center justify-center mb-6 shadow-inner"></div>
+                <h2 class="font-['Playfair_Display'] text-3xl text-primary font-bold mb-2">任務通關成功！</h2>
+                <p class="text-muted-foreground mb-6">您已成功解鎖此店家的專屬成就！</p>
+                <div class="bg-secondary/50 border border-theme-border rounded-theme p-4 w-full mb-6">
+                    <p class="text-sm text-primary font-medium flex items-center justify-center gap-2">
+                        請向店家出示此畫面領取優惠
+                    </p>
+                </div>
+                <button id="btnReturnShop" class="w-full bg-primary text-primary-foreground py-3.5 rounded-full font-medium hover:opacity-90 transition-all shadow-md flex items-center justify-center gap-2">
+                    返回商家頁面
+                </button>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

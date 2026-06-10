@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小半天 - 商家個人化編輯</title>
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/shop-profile.css">
+    <script src="js/index.js" defer></script>
+    <script src="js/shop-profile.js" defer></script>
+</head>
+<body class="editable-profile">
+
+    <div id="header-placeholder"></div>
+
+    <main class="immersive-view">
+        <div class="hero-bg" id="shopHeroBg">
+            <div class="bg-overlay"></div>
+            <label for="bgUpload" class="change-bg-btn">更換背景圖片</label>
+            <input type="file" id="bgUpload" accept="image/*" style="display: none;">
+        </div>
+
+        <div class="info-card-wrapper">
+            <div class="info-card">
+                
+                <div class="shop-header-actions">
+                    <div class="tag-badge">在地商家管理模式</div>
+                    <div class="status-control">
+                        <label for="editShopStatus">目前狀態：</label>
+                        <select id="editShopStatus" class="input-status">
+                            <option value="open">正常營業</option>
+                            <option value="closed">休息中</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="edit-group">
+                    <input type="text" id="editShopTitle" class="input-title" placeholder="請輸入商家名稱">
+                </div>
+
+                <div class="edit-group">
+                    <input type="text" id="editShopAddress" class="input-address" placeholder="請輸入商家地址">
+                </div>
+
+                <div class="section-block">
+                    <h3 class="section-title">關於我們</h3>
+                    <textarea id="editShopDesc" class="input-desc" rows="4" placeholder="請輸入商家詳細介紹..."></textarea>
+                </div>
+
+                <div class="section-block" id="taskPreviewContainer">
+                    <h3 class="section-title">活動與任務預覽</h3>
+                    <div class="activity-cards" id="taskPreview"></div>
+                </div>
+
+                <div id="touristActionSection" class="section-block hidden">
+                    <h3 class="section-title" style="color: #1E5E3A; border-bottom: 2px solid #E6F4EA; padding-bottom: 10px;">專屬互動任務</h3>
+                    
+                    <div id="lockedState" class="tourist-action-box">
+                        <p style="color: #4A5568; margin-bottom: 15px;">掃描現場的 QR Code 挑戰小遊戲，即可解鎖專屬成就！</p>
+                        <button id="btnTouristUnlock" class="btn-scan-action">掃描 QR Code 解鎖</button>
+                    </div>
+
+                    <div id="unlockedState" class="tourist-action-box hidden" style="background: #E6F4EA; border-color: #9AE6B4;">
+                        <div class="success-badge">已成功解鎖此商家</div>
+                        <p style="color: #22543D; margin-top: 10px;">您已完成此商家的專屬挑戰，感謝您的參與！</p>
+                    </div>
+                </div>
+
+                <div class="action-footer" id="ownerActionFooter">
+                    <p class="hint-text">所有修改將即時反映在遊客看到的頁面上。</p>
+                    <button id="btnSaveProfile" class="btn-save-all">儲存所有修改</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div id="scannerModal" class="scan-modal hidden">
+        <div class="scan-modal-content">
+            <span id="closeScannerModal" class="close-btn">&times;</span>
+            <h3 style="margin-bottom: 15px; color: #1E5E3A;">掃描商家專屬 QR Code</h3>
+            <div id="reader"></div>
+            <div id="scanResult" class="hidden" style="margin-top: 15px; text-align: center;">
+                <p id="scanData" style="color: #4A5568; margin-bottom: 15px;"></p>
+                <button id="btnConfirmScan" class="btn-scan-action" style="width: 100%;">確認並進入挑戰</button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://unpkg.com/html5-qrcode"></script>
+</body>
+</html>

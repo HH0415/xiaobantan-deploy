@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小半天 - 登入與註冊</title>
+    <link rel="stylesheet" href="css/auth.css">
+    <script src="js/auth.js" defer></script>
+</head>
+<body>
+
+    <div class="auth-wrapper">
+        <!--之後要刪掉-->
+        <a href="index.html" class="back-home">&lt; 返回首頁</a>
+
+        <div class="auth-card">
+            <div class="auth-logo">
+                <span class="brand-title">小半天</span>
+                <span class="brand-sub">XIAOBANTAN</span>
+            </div>
+
+            <div class="auth-box id-login" id="loginBox">
+                <h2 class="auth-title">歡迎回來</h2>
+                <p class="auth-subtitle">請登入以繼續您的在地探索之旅</p>
+
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="loginEmail">Gmail 信箱</label>
+                        <input type="email" id="loginEmail" placeholder="example@gmail.com" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <div class="password-label-row">
+                            <label for="loginPassword">密碼</label>
+                            <a href="#" id="forgotPassword" class="forgot-link">忘記密碼？</a>
+                        </div>
+                        <input type="password" id="loginPassword" placeholder="請輸入密碼" required>
+                    </div>
+                    
+                    <button type="submit" class="btn-auth">登入</button>
+                </form>
+                <div class="auth-switch">
+                    還沒有帳號嗎？ <a href="#" id="toRegister">立即註冊</a>
+                </div>
+            </div>
+
+            <!--忘記密碼-->
+            <div class="auth-box id-forgot-password hidden" id="forgotBox">
+                <h2 class="auth-title">找回您的密碼</h2>
+                <p class="auth-subtitle">請在下方輸入您註冊的 Gmail 信箱，系統將為您發送密碼重設鏈結。</p>
+
+                <form id="forgotForm">
+                    <div class="form-group">
+                        <label for="forgotEmail">註冊的 Gmail 信箱</label>
+                        <input type="email" id="forgotEmail" placeholder="example@gmail.com" required>
+                    </div>
+                    <button type="submit" class="btn-auth">發送重設驗證信</button>
+                </form>
+                
+                <div class="auth-switch">
+                    想起來密碼了？ <a href="#" id="backToLogin">返回登入</a>
+                </div>
+            </div>
+            <!--註冊-->
+            <div class="auth-box id-register hidden" id="registerBox">
+                <h2 class="auth-title">建立新帳號</h2>
+                <p class="auth-subtitle">加入系統，解鎖旗幟任務與在地導覽</p>
+
+                <form id="registerForm">
+                    <div class="form-group">
+                        <label>註冊身分</label>
+                        <div class="identity-group">
+                            <label class="radio-label">
+                                <input type="radio" name="identity" value="visitor" checked>
+                                <span class="radio-custom">遊客</span>
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="identity" value="merchant">
+                                <span class="radio-custom">商家</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="regName">姓名 / 組織名稱</label>
+                        <input type="text" id="regName" placeholder="請輸入姓名或店名" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="regEmail">Gmail 信箱</label>
+                        <input type="email" id="regEmail" placeholder="example@gmail.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="regPassword">密碼</label>
+                        <input type="password" id="regPassword" placeholder="請輸入密碼" required>
+                    </div>
+
+                    <div class="form-group hidden" id="addressField">
+                        <label for="regAddress">商家地址</label>
+                        <input type="text" id="regAddress" placeholder="南投縣鹿谷鄉...">
+                    </div>
+
+                    <button type="submit" class="btn-auth">註冊帳號</button>
+                </form>
+                <div class="auth-switch">
+                    已經有帳號了？ <a href="#" id="toLogin">返回登入</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>

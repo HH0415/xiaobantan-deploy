@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>景點介紹 - 小半天</title>
+    <link rel="stylesheet" href="css/index.css"> 
+    <link rel="stylesheet" href="css/attraction.css"> 
+    <style>
+        .section-block { margin-top: 30px; padding-top: 20px; border-top: 1px dashed #E2E8F0; }
+        .tourist-action-box { background: #F8FAFC; border: 1px dashed #CBD5E0; border-radius: 12px; padding: 24px 20px; text-align: center; }
+        .btn-scan-action { background: #1E5E3A; color: white; border: none; padding: 12px 24px; border-radius: 8px; font-weight: bold; cursor: pointer; transition: 0.2s; font-size: 15px; }
+        .btn-scan-action:hover { background: #15452a; }
+        .success-badge { display: inline-block; background: #C6F6D5; color: #22543D; padding: 8px 16px; border-radius: 20px; font-weight: bold; font-size: 14px; }
+        .hidden { display: none !important; }
+    </style>
+    <script src="js/attraction.js" defer></script>
+</head>
+<body>
+
+    <div class="top-nav">
+        <a href="mapping.html" class="btn-back">← 返回地圖</a>
+    </div>
+
+    <div class="hero-section" id="heroImage"></div>
+
+    <div class="content-card">
+        <div id="loadingState">正在載入景點資訊...</div>
+        
+        <div id="attractionContent" style="display: none;">
+            <span class="tag-official">小半天官方景點</span>
+            <h1 class="attraction-title" id="pageTitle">景點名稱</h1>
+            <div class="attraction-address">
+                <span></span> <span id="pageAddress">南投縣鹿谷鄉</span>
+            </div>
+
+            <div class="section-title">歷史與文化介紹</div>
+            <div class="description-text" id="pageDesc"></div>
+
+            <div class="section-title">在地特色活動</div>
+            <div class="activity-grid">
+                <div class="activity-card">
+                    <div class="activity-icon"></div>
+                    <div class="activity-info">
+                        <h5>春季賞櫻</h5>
+                        <p>每年 2-3 月河津櫻盛開，適合野餐散步。</p>
+                    </div>
+                </div>
+                <div class="activity-card">
+                    <div class="activity-icon"></div>
+                    <div class="activity-info">
+                        <h5>冬筍季體驗</h5>
+                        <p>冬季可參與當地竹林挖冬筍的食農教育。</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="touristActionSection" class="section-block">
+                <div id="lockedState" class="tourist-action-box">
+                    <p style="color: #4A5568; margin-bottom: 15px;">掃描現場的 QR Code，解鎖此景點的專屬成就！</p>
+                    <button id="btnTouristUnlock" class="btn-scan-action">掃描 QR Code 解鎖景點</button>
+                </div>
+                <div id="unlockedState" class="tourist-action-box hidden" style="background: #E6F4EA; border-color: #9AE6B4;">
+                    <div class="success-badge">已成功解鎖此景點</div>
+                    <p style="color: #22543D; margin-top: 10px;">您已獲得此景點的專屬成就徽章！</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="scannerModal" class="qr-modal hidden" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); display: flex; justify-content: center; align-items: center; z-index: 1000;">
+        <div class="qr-modal-content" style="background: white; padding: 30px; border-radius: 16px; width: 90%; max-width: 350px; position: relative; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.2);">
+            <span id="closeScannerModal" style="position: absolute; right: 20px; top: 15px; font-size: 28px; cursor: pointer; color: #666; font-weight: bold;">X</span>
+            <h3 style="margin-bottom: 20px; color: #1E5E3A; font-weight: bold; font-size: 18px;">掃描官方景點 QR Code</h3>
+            <div id="reader" style="width: 100%;"></div>
+            <div id="scanResult" class="hidden" style="margin-top: 15px;">
+                <p id="scanData" style="color: #4A5568; margin-bottom: 15px;"></p>
+                <button id="btnConfirmScan" class="btn-scan-action" style="width: 100%;">確認解鎖</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/html5-qrcode"></script>
+</body>
+</html>
