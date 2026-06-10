@@ -77,13 +77,38 @@ document.addEventListener("DOMContentLoaded", () => {
             e.preventDefault();
 
             const selectedRole = document.querySelector('input[name="identity"]:checked').value === 'merchant' ? 'MERCHANT' : 'USER';
+            const addressValue = regAddressInput ? regAddressInput.value.trim() : "";
             
+            let latitude = 0.0;
+            let longitude = 0.0;
+
+            if (selectedRole === 'MERCHANT' && addressValue !== "") {
+                try {
+                    const geoResponse = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(addressValue)}`);
+                    const geoData = await geoResponse.json();
+
+                    if (geoData && geoData.length > 0) {
+                        latitude = parseFloat(geoData[0].lat);
+                        longitude = parseFloat(geoData[0].lon);
+                    } else {
+                        alert("提醒：找不到該地址的精確位置！請確認地址是否輸入正確，否則地圖將無法顯示。");
+                        return; 
+                    }
+                } catch (err) {
+                    console.error(err);
+                    alert("座標轉換服務暫時無法連線，請稍後再試！");
+                    return; 
+                }
+            }
+
             const payload = {
                 role: selectedRole,
                 username: document.getElementById("regName").value,
                 email: document.getElementById("regEmail").value,
                 password: document.getElementById("regPassword").value,
-                address: regAddressInput ? regAddressInput.value : ""
+                address: addressValue,
+                latitude: latitude,
+                longitude: longitude
             };
 
             try {

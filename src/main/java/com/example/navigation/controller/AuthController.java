@@ -6,7 +6,9 @@ import com.example.navigation.dto.UserCreateRequest;
 import com.example.navigation.dto.ForgotRequest;
 import com.example.navigation.dto.ResetRequest;
 import com.example.navigation.model.User;
+import com.example.navigation.model.Attraction;
 import com.example.navigation.repository.UserRepository;
+import com.example.navigation.repository.AttractionRepository;
 import com.example.navigation.security.JwtUtil;
 import com.example.navigation.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +37,9 @@ public class AuthController {
     private UserRepository userRepository;
 
     @Autowired
+    private AttractionRepository attractionRepository;
+
+    @Autowired
     private JavaMailSender mailSender;
 
     @Autowired
@@ -44,6 +49,24 @@ public class AuthController {
     public ApiResponse<User> register(@RequestBody UserCreateRequest request) {
         try {
             User user = userService.createUser(request);
+            
+            if ("MERCHANT".equalsIgnoreCase(user.getRole())) {
+                Attraction attraction = new Attraction();
+                attraction.setMerchantId(user.getUserId());
+                attraction.setName(user.getUsername());
+                attraction.setAddress(user.getAddress());
+                attraction.setDescription("歡迎光臨 " + user.getUsername() + "！");
+                
+                if (request.getLatitude() != null && request.getLongitude() != null && request.getLatitude() != 0.0) {
+                    attraction.setLatitude(request.getLatitude());
+                    attraction.setLongitude(request.getLongitude());
+                } else {
+                    attraction.setLatitude(23.726925);
+                    attraction.setLongitude(120.758167);
+                }
+                attractionRepository.save(attraction);
+            }
+
             user.setPassword(null); 
             return ApiResponse.success("註冊成功", user);
         } catch (Exception e) {
@@ -110,7 +133,6 @@ public class AuthController {
 
         User user = userOpt.get();
         
-        // 確保新密碼寫入資料庫前，已經過 BCrypt 加密處理
         user.setPassword(passwordEncoder.encode(request.getNewPassword()));
         
         user.setVerificationToken(null);

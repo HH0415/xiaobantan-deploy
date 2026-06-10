@@ -9,4 +9,7 @@ public class UserCreateRequest {
     private String email;    
     private String password;
     private String address;
+
+    private Double latitude;
+    private Double longitude;
 }

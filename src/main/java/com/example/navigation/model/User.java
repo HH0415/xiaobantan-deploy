@@ -18,14 +18,14 @@ public class User {
     @Column(nullable = false, length = 20)
     private String role;
 
-    @Nationalized // 👈 確保使用者中文姓名不變問號
+    @Nationalized
     @Column(nullable = false, length = 50)
     private String username;
 
     @Column(nullable = false, length = 100)
     private String email;
 
-    @Nationalized // 👈 確保偏好設定 JSON 支援中文
+    @Nationalized
     @Column(columnDefinition = "NVARCHAR(MAX)")
     private String preferences;
 
@@ -34,7 +34,7 @@ public class User {
     
     private String password;
 
-    @Nationalized // 👈 確保使用者地址支援中文
+    @Nationalized
     @Column(length = 255)
     private String address;
 
