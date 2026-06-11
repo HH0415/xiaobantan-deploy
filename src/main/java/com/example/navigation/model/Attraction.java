@@ -35,4 +35,7 @@ public class Attraction {
     // 如果是官方景點，這欄會是 null；如果是商家，就會記錄商家的 userId
     @Column(name = "merchant_id")
     private Integer merchantId;
+
+    @Column(columnDefinition = "VARCHAR(MAX)")
+    private String imageUrl;
 }

@@ -45,26 +45,41 @@ public class AttractionController {
         return ResponseEntity.ok().build();
     }
 
+    // 💡 升級版：修改商家景點資料 (包含舊帳號自動補辦地標功能)
     @PutMapping("/merchant/{merchantId}")
     public ApiResponse<?> updateMerchantAttraction(
             @PathVariable Integer merchantId,
             @RequestBody Attraction updateRequest) {
+        
         Optional<Attraction> existingAttraction = attractionRepository.findByMerchantId(merchantId);
+        Attraction attraction;
+        
         if (existingAttraction.isPresent()) {
-            Attraction attraction = existingAttraction.get();
-            attraction.setName(updateRequest.getName());
-            attraction.setAddress(updateRequest.getAddress());
-            attraction.setDescription(updateRequest.getDescription());
-            
-            if (updateRequest.getLatitude() != null && updateRequest.getLatitude() != 0.0) {
-                attraction.setLatitude(updateRequest.getLatitude());
-                attraction.setLongitude(updateRequest.getLongitude());
-            }
-            
-            attractionRepository.save(attraction);
-            return ApiResponse.success("更新成功", attraction);
+            // 如果原本就有地標，直接拿出來改
+            attraction = existingAttraction.get();
         } else {
-            return ApiResponse.error(404, "找不到該商家的景點資料");
+            // 💡 【超強防呆】如果是舊帳號，資料庫還沒有他的地標，就在這裡當場幫他補建一個！
+            attraction = new Attraction();
+            attraction.setMerchantId(merchantId);
         }
+        
+        // 更新前端傳來的新資料
+        attraction.setName(updateRequest.getName());
+        attraction.setAddress(updateRequest.getAddress());
+        attraction.setDescription(updateRequest.getDescription());
+        
+        // 更新手動輸入的經緯度
+        if (updateRequest.getLatitude() != null && updateRequest.getLatitude() != 0.0) {
+            attraction.setLatitude(updateRequest.getLatitude());
+            attraction.setLongitude(updateRequest.getLongitude());
+        } else if (attraction.getLatitude() == null) {
+            // 如果都沒填，給一個小半天的預設中心點座標
+            attraction.setLatitude(23.726925);
+            attraction.setLongitude(120.758167);
+        }
+        
+        // 存回資料庫
+        attractionRepository.save(attraction);
+        return ApiResponse.success("更新成功", attraction);
     }
 }

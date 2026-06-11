@@ -92,14 +92,21 @@ document.addEventListener("DOMContentLoaded", () => {
             
             if (result.status === 200 && result.data) {
                 const data = result.data;
-                if (data.type === 'quiz') {
+                if (data.taskType === 'quiz' || data.type === 'quiz') {
                     document.querySelector('input[value="quiz"]').checked = true;
                     document.querySelector('input[value="quiz"]').dispatchEvent(new Event('change'));
                     document.getElementById('quizQuestion').value = data.question || '';
-                    document.getElementById('optionA').value = data.optionA || '';
-                    document.getElementById('optionB').value = data.optionB || '';
-                    document.getElementById('optionC').value = data.optionC || '';
-                    document.getElementById('quizAnswer').value = data.correctAnswer || 'A';
+                    
+                    if (data.optionsJson) {
+                        try {
+                            const opts = JSON.parse(data.optionsJson);
+                            document.getElementById('optionA').value = opts.A || '';
+                            document.getElementById('optionB').value = opts.B || '';
+                            document.getElementById('optionC').value = opts.C || '';
+                        } catch(e) {}
+                    }
+                    
+                    document.getElementById('quizAnswer').value = data.answer || data.correctAnswer || 'A';
                 } else {
                     document.querySelector('input[value="puzzle"]').checked = true;
                     document.querySelector('input[value="puzzle"]').dispatchEvent(new Event('change'));
@@ -138,15 +145,26 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
                 payload.puzzleImage = currentImageBase64;
             } else {
-                payload.question = document.getElementById('quizQuestion').value.trim();
-                payload.optionA = document.getElementById('optionA').value.trim();
-                payload.optionB = document.getElementById('optionB').value.trim();
-                payload.optionC = document.getElementById('optionC').value.trim();
-                payload.correctAnswer = document.getElementById('quizAnswer').value;
-                if (!payload.question || !payload.optionA || !payload.optionB) {
+                const qValue = document.getElementById('quizQuestion').value.trim();
+                const optA = document.getElementById('optionA').value.trim();
+                const optB = document.getElementById('optionB').value.trim();
+                const optC = document.getElementById('optionC').value.trim();
+                const ans = document.getElementById('quizAnswer').value;
+
+                if (!qValue || !optA || !optB) {
                     alert("請填寫完整問答資訊");
                     return;
                 }
+
+                payload.quizData = {
+                    question: qValue,
+                    answer: ans,
+                    options: {
+                        "A": optA,
+                        "B": optB,
+                        "C": optC
+                    }
+                };
             }
 
             try {
